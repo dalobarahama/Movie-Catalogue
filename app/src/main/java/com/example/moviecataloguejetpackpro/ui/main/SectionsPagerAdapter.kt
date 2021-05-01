@@ -1,10 +1,13 @@
-package com.example.moviecataloguejetpackpro
+package com.example.moviecataloguejetpackpro.ui.main
 
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.moviecataloguejetpackpro.R
+import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
+import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragmant
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

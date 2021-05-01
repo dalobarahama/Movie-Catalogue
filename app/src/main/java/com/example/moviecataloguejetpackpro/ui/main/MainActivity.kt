@@ -1,4 +1,4 @@
-package com.example.moviecataloguejetpackpro
+package com.example.moviecataloguejetpackpro.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

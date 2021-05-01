@@ -1,6 +1,6 @@
-package com.example.moviecataloguejetpackpro
+package com.example.moviecataloguejetpackpro.data
 
-data class Movie(
+data class MovieEntity(
     var movieId: String,
     var title: String,
     var overview: String,
