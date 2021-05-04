@@ -5,4 +5,10 @@
     <string name="tv_shows">TV Shows</string>
     <string name="movies">Movies</string>
 
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet metus laoreet, ultricies est non, faucibus mauris. Sed ultrices erat id bibendum molestie. Praesent suscipit lorem sit amet mi blandit lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent ut augue et elit aliquam volutpat. Nulla rhoncus sed metus et rutrum. Nullam laoreet, elit a bibendum dignissim, diam ex sagittis libero, ut mollis magna enim ac lectus. Nullam ornare, dui ut mattis iaculis, enim felis dignissim dui, at laoreet orci velit vel erat. Donec ut quam rutrum, maximus augue eu, posuere massa.
+
+Aliquam interdum risus at sollicitudin suscipit. Morbi tincidunt tempor suscipit. Nunc ante eros, facilisis at ipsum pellentesque, molestie vulputate turpis. Donec quam nisi, feugiat ut arcu eu, dictum aliquet nisl. Quisque dui urna, pulvinar sit amet metus vel, blandit porttitor nisl. Pellentesque varius ligula sit amet lacus ultricies pretium. Suspendisse at egestas libero. Suspendisse dapibus, risus vitae lobortis imperdiet, nisi ipsum tincidunt nunc, eget blandit urna magna pharetra lacus. Aenean gravida, lectus vel viverra ullamcorper, ipsum tellus porta dolor, vitae mollis risus elit sit amet enim. In gravida fringilla est sed tempor. Vestibulum facilisis pharetra elit bibendum ultricies. Maecenas vehicula sapien quis felis posuere, eget finibus nulla efficitur.
+
+</string>
+
 </resources>
