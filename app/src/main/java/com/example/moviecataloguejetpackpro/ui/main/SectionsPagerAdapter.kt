@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
-import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragmant
+import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragment
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -22,7 +22,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment =
         when (position) {
             0 -> MovieFragment()
-            1 -> TVShowsFragmant()
+            1 -> TVShowsFragment()
             else -> Fragment()
         }
 

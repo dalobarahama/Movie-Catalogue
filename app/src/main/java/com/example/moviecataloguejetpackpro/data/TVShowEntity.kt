@@ -7,4 +7,5 @@ data class TVShowEntity(
     var tags: String,
     var score: String,
     var releaseDate: String,
+    var imagePath: Int,
 )
