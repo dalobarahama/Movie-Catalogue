@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
-import com.example.moviecataloguejetpackpro.utils.DataDummy
 
 class TVShowsFragment : Fragment() {
     private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
@@ -24,9 +24,12 @@ class TVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val tvShows = DataDummy.generateDummyTVShows()
+            val viewModel = ViewModelProvider(
+                requireActivity(),
+                ViewModelProvider.NewInstanceFactory()
+            )[TVShowViewModel::class.java]
             val tvShowAdapter = TVShowAdapter()
-            tvShowAdapter.setMovies(tvShows)
+            tvShowAdapter.setMovies(viewModel.getTVShow())
 
             with(fragmentTvShowsBinding.moviesRecyclerview) {
                 layoutManager = LinearLayoutManager(context)
