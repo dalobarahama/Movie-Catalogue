@@ -31,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
             activityDetailBinding.overviewDetailActivity.text = extras.getString(EXTRA_OVERVIEW)
             activityDetailBinding.releaseDateDetailActivity.text =
                 extras.getString(EXTRA_RELEASE_DATE)
-            activityDetailBinding.scoreDetailActivity.text = extras.getString(EXTRA_RELEASE_DATE)
+            activityDetailBinding.scoreDetailActivity.text = extras.getString(EXTRA_SCORE)
 
             Glide.with(this)
                 .load(extras.getInt(EXTRA_IMAGE_PATH))
