@@ -31,7 +31,7 @@ class TVShowsFragment : Fragment() {
             val tvShowAdapter = TVShowAdapter()
             tvShowAdapter.setMovies(viewModel.getTVShow())
 
-            with(fragmentTvShowsBinding.moviesRecyclerview) {
+            with(fragmentTvShowsBinding.tvshowsRecyclerview) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tvShowAdapter

@@ -2,12 +2,16 @@ package com.example.moviecataloguejetpackpro.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.moviecataloguejetpackpro.data.Entity
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
     companion object {
+        const val EXTRA_TYPE = "extra_type"
+        const val EXTRA_ID = "extra_id"
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_OVERVIEW = "extra_overview"
         const val EXTRA_TAGS = "extra_tags"
@@ -16,26 +20,44 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_IMAGE_PATH = "extra_image_path"
     }
 
+    private lateinit var activityDetailBinding: ActivityDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
+        activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
 
         setContentView(activityDetailBinding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[DetailViewModel::class.java]
+
         val extras = intent.extras
         if (extras != null) {
-            activityDetailBinding.titleDetailActivity.text = extras.getString(EXTRA_TITLE)
-            activityDetailBinding.overviewDetailActivity.text = extras.getString(EXTRA_OVERVIEW)
-            activityDetailBinding.releaseDateDetailActivity.text =
-                extras.getString(EXTRA_RELEASE_DATE)
-            activityDetailBinding.scoreDetailActivity.text = extras.getString(EXTRA_SCORE)
-
-            Glide.with(this)
-                .load(extras.getInt(EXTRA_IMAGE_PATH))
-                .into(activityDetailBinding.posterDetailActivity)
+            val itemType = extras.getString(EXTRA_TYPE)
+            val itemId = extras.getString(EXTRA_ID)
+            if (itemId != null && itemType != null) {
+                viewModel.setSelectedItem(itemType, itemId)
+                populateEntity(viewModel.getItem())
+            }
         }
     }
+
+    private fun populateEntity(entity: Entity) {
+        activityDetailBinding.titleDetailActivity.text = entity.title
+        activityDetailBinding.overviewDetailActivity.text = entity.overview
+        activityDetailBinding.releaseDateDetailActivity.text =
+            entity.releaseDate
+        activityDetailBinding.scoreDetailActivity.text = entity.score
+        activityDetailBinding.tagsDetailActivity.text = entity.tags
+
+        Glide.with(this)
+            .load(entity.imagePath)
+            .into(activityDetailBinding.posterDetailActivity)
+    }
+
 }
