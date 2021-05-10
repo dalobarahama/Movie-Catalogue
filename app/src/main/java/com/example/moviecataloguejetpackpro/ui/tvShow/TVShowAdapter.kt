@@ -2,18 +2,17 @@ package com.example.moviecataloguejetpackpro.ui.tvShow
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.TVShowEntity
+import com.example.moviecataloguejetpackpro.data.Entity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
-    private var listTVShows = ArrayList<TVShowEntity>()
+    private var listTVShows = ArrayList<Entity>()
 
-    fun setMovies(tvShows: List<TVShowEntity>?) {
+    fun setMovies(tvShows: List<Entity>?) {
         if (tvShows == null) return
         this.listTVShows.clear()
         this.listTVShows.addAll(tvShows)
@@ -34,12 +33,14 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
 
     class TVShowViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShow: TVShowEntity) {
+        fun bind(tvShow: Entity) {
             with(binding) {
                 titleItemMovieTvshow.text = tvShow.title
                 overviewItemMovieTvshow.text = tvShow.overview
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_TYPE, tvShow.type)
+                    intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
                     intent.putExtra(DetailActivity.EXTRA_TITLE, tvShow.title)
                     intent.putExtra(DetailActivity.EXTRA_OVERVIEW, tvShow.overview)
                     intent.putExtra(DetailActivity.EXTRA_TAGS, tvShow.tags)
@@ -53,15 +54,5 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
                 .load(tvShow.imagePath)
                 .into(binding.posterItemMovieTvshow)
         }
-    }
-
-    fun goToDetailActivity(itemView: View, tvShow: TVShowEntity) {
-        val intent = Intent(itemView.context, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_TITLE, tvShow.title)
-        intent.putExtra(DetailActivity.EXTRA_OVERVIEW, tvShow.overview)
-        intent.putExtra(DetailActivity.EXTRA_TAGS, tvShow.tags)
-        intent.putExtra(DetailActivity.EXTRA_RELEASE_DATE, tvShow.releaseDate)
-        intent.putExtra(DetailActivity.EXTRA_SCORE, tvShow.score)
-        itemView.context.startActivity(intent)
     }
 }

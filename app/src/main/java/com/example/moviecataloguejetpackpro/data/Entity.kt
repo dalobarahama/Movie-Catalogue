@@ -1,7 +1,8 @@
 package com.example.moviecataloguejetpackpro.data
 
-data class MovieEntity(
-    var movieId: String,
+data class Entity(
+    var type: String,
+    var id: String,
     var title: String,
     var overview: String,
     var tags: String,
