@@ -1,4 +1,4 @@
-package com.example.moviecataloguejetpackpro.data.remote.response
+package com.example.moviecataloguejetpackpro.data.source.remote.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

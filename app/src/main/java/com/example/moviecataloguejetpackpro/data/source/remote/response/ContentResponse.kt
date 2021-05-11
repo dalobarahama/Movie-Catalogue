@@ -1,4 +1,4 @@
-package com.example.moviecataloguejetpackpro.data.remote.response
+package com.example.moviecataloguejetpackpro.data.source.remote.response
 
 data class ContentResponse(
     var id: String,
