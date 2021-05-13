@@ -2,9 +2,10 @@ package com.example.moviecataloguejetpackpro.ui.detail
 
 import androidx.lifecycle.ViewModel
 import com.example.moviecataloguejetpackpro.data.Entity
+import com.example.moviecataloguejetpackpro.data.source.Repository
 import com.example.moviecataloguejetpackpro.utils.DataDummy
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val repository: Repository) : ViewModel() {
     private lateinit var type: String
     private lateinit var id: String
 
@@ -15,8 +16,8 @@ class DetailViewModel : ViewModel() {
 
     fun getItem(): Entity {
         lateinit var entity: Entity
-        val movieList = DataDummy.generateDummyMovies()
-        val tvShowList = DataDummy.generateDummyTVShows()
+        val movieList = repository.getAllMovies()
+        val tvShowList = repository.getAllTVShow()
 
         if (type.equals("movie", true)) {
             for (movieEntity in movieList) {

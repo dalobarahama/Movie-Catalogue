@@ -2,10 +2,10 @@ package com.example.moviecataloguejetpackpro.ui.movie
 
 import androidx.lifecycle.ViewModel
 import com.example.moviecataloguejetpackpro.data.Entity
-import com.example.moviecataloguejetpackpro.utils.DataDummy
+import com.example.moviecataloguejetpackpro.data.source.Repository
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getMovies(): List<Entity> = DataDummy.generateDummyMovies()
+    fun getMovies(): List<Entity> = repository.getAllMovies()
 
 }

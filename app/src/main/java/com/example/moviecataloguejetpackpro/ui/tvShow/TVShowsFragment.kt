@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
+import com.example.moviecataloguejetpackpro.viewmodel.ViewModelFactory
 
 class TVShowsFragment : Fragment() {
     private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
@@ -24,9 +25,10 @@ class TVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(
-                requireActivity(),
-                ViewModelProvider.NewInstanceFactory()
+                this,
+                factory
             )[TVShowViewModel::class.java]
             val tvShowAdapter = TVShowAdapter()
             tvShowAdapter.setMovies(viewModel.getTVShow())

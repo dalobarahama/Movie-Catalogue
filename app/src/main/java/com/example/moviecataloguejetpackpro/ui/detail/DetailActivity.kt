@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.Entity
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
+import com.example.moviecataloguejetpackpro.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,9 +32,10 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            factory
         )[DetailViewModel::class.java]
 
         val extras = intent.extras
