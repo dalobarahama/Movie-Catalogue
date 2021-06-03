@@ -1,14 +1,14 @@
 package com.example.moviecataloguejetpackpro.utils
 
 import com.example.moviecataloguejetpackpro.R
-import com.example.moviecataloguejetpackpro.data.Entity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 
 object DataDummy {
-    fun generateDummyMovies(): List<Entity> {
-        val movies = ArrayList<Entity>()
+    fun generateDummyMovies(): List<MovieEntity> {
+        val movies = ArrayList<MovieEntity>()
 
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie1",
                 "Aquaman",
@@ -20,7 +20,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie2",
                 "Alita: Battle Angel",
@@ -32,7 +32,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie3",
                 "A Star Is Born",
@@ -44,7 +44,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie4",
                 "Bohemian Rhapsody",
@@ -56,7 +56,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie5",
                 "Cold Pursuit",
@@ -68,7 +68,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie6",
                 "Creed II",
@@ -80,7 +80,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie7",
                 "Fantastic Beasts: The Crimes of Grindelwald",
@@ -92,7 +92,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie8",
                 "Glass",
@@ -104,7 +104,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie9",
                 "How to Train Your Dragon: The Hidden World",
@@ -116,7 +116,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie10",
                 "Avengers: Infinity War",
@@ -128,7 +128,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie11",
                 "Mary Queen of Scots",
@@ -140,7 +140,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie12",
                 "Master Z: Ip Man Legacy",
@@ -152,7 +152,7 @@ object DataDummy {
             )
         )
         movies.add(
-            Entity(
+            MovieEntity(
                 "movie",
                 "movie13",
                 "Mortal Engines",
@@ -167,11 +167,11 @@ object DataDummy {
         return movies
     }
 
-    fun generateDummyTVShows(): List<Entity> {
-        val tvShows = ArrayList<Entity>()
+    fun generateDummyTVShows(): List<MovieEntity> {
+        val tvShows = ArrayList<MovieEntity>()
 
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow1",
                 "Arrow",
@@ -183,7 +183,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow2",
                 "Doom Patrol",
@@ -195,7 +195,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow3",
                 "Dragon Ball Absalon",
@@ -207,7 +207,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow4",
                 "Fairy Tail",
@@ -219,7 +219,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow5",
                 "Family Guy",
@@ -231,7 +231,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow6",
                 "The Flash",
@@ -243,7 +243,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow7",
                 "Game of Thrones",
@@ -255,7 +255,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow8",
                 "Gotham",
@@ -267,7 +267,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow9",
                 "Grey's Anatomy",
@@ -279,7 +279,7 @@ object DataDummy {
             )
         )
         tvShows.add(
-            Entity(
+            MovieEntity(
                 "tvShow",
                 "tvShow10",
                 "Hannah",

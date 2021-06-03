@@ -1,17 +1,22 @@
 package com.example.moviecataloguejetpackpro.data.source.remote
 
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
-        fun getApiService(): ApiService {
-            val loggingInterceptor =
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        fun getApiService(apiKey: String): ApiService {
             val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+                .addInterceptor { chain ->
+                    val url = chain
+                        .request()
+                        .url
+                        .newBuilder()
+                        .addQueryParameter("api_key", apiKey)
+                        .build()
+                    chain.proceed(chain.request().newBuilder().url(url).build())
+                }
                 .build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")

@@ -5,17 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
 
 class TVShowsFragment : Fragment() {
     private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
+    private val tvShowViewModel: TVShowViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         fragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
         return fragmentTvShowsBinding.root
@@ -24,12 +25,16 @@ class TVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(
-                requireActivity(),
-                ViewModelProvider.NewInstanceFactory()
-            )[TVShowViewModel::class.java]
+//            val viewModel = ViewModelProvider(
+//                requireActivity(),
+//                ViewModelProvider.NewInstanceFactory()
+//            )[TVShowViewModel::class.java]
             val tvShowAdapter = TVShowAdapter()
-            tvShowAdapter.setMovies(viewModel.getTVShow())
+
+            tvShowViewModel.tvShowList.observe(requireActivity(), { tvShows ->
+                tvShowAdapter.setTvShows(tvShows)
+                tvShowAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentTvShowsBinding.tvshowsRecyclerview) {
                 layoutManager = LinearLayoutManager(context)

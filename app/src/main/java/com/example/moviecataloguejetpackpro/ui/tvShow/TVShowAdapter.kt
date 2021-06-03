@@ -1,18 +1,20 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.Entity
+import com.example.moviecataloguejetpackpro.data.source.remote.TVShow
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
-import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
-    private var listTVShows = ArrayList<Entity>()
+    private var listTVShows = ArrayList<TVShow>()
 
-    fun setMovies(tvShows: List<Entity>?) {
+    companion object {
+        private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+    }
+
+    fun setTvShows(tvShows: List<TVShow>?) {
         if (tvShows == null) return
         this.listTVShows.clear()
         this.listTVShows.addAll(tvShows)
@@ -33,25 +35,25 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
 
     class TVShowViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShow: Entity) {
+        fun bind(tvShow: TVShow) {
             with(binding) {
-                titleItemMovieTvshow.text = tvShow.title
+                titleItemMovieTvshow.text = tvShow.name
                 overviewItemMovieTvshow.text = tvShow.overview
-                itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_TYPE, tvShow.type)
-                    intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
-                    intent.putExtra(DetailActivity.EXTRA_TITLE, tvShow.title)
-                    intent.putExtra(DetailActivity.EXTRA_OVERVIEW, tvShow.overview)
-                    intent.putExtra(DetailActivity.EXTRA_TAGS, tvShow.tags)
-                    intent.putExtra(DetailActivity.EXTRA_RELEASE_DATE, tvShow.releaseDate)
-                    intent.putExtra(DetailActivity.EXTRA_SCORE, tvShow.score)
-                    intent.putExtra(DetailActivity.EXTRA_IMAGE_PATH, tvShow.imagePath)
-                    itemView.context.startActivity(intent)
-                }
+//                itemView.setOnClickListener {
+//                    val intent = Intent(itemView.context, DetailActivity::class.java)
+//                    intent.putExtra(DetailActivity.EXTRA_TYPE, tvShow.type)
+//                    intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
+//                    intent.putExtra(DetailActivity.EXTRA_TITLE, tvShow.title)
+//                    intent.putExtra(DetailActivity.EXTRA_OVERVIEW, tvShow.overview)
+//                    intent.putExtra(DetailActivity.EXTRA_TAGS, tvShow.tags)
+//                    intent.putExtra(DetailActivity.EXTRA_RELEASE_DATE, tvShow.releaseDate)
+//                    intent.putExtra(DetailActivity.EXTRA_SCORE, tvShow.score)
+//                    intent.putExtra(DetailActivity.EXTRA_IMAGE_PATH, tvShow.imagePath)
+//                    itemView.context.startActivity(intent)
+//                }
             }
             Glide.with(itemView.context)
-                .load(tvShow.imagePath)
+                .load(IMAGE_BASE_URL + tvShow.posterPath)
                 .into(binding.posterItemMovieTvshow)
         }
     }

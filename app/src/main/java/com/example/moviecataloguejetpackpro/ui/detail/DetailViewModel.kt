@@ -1,7 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
 import androidx.lifecycle.ViewModel
-import com.example.moviecataloguejetpackpro.data.Entity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.utils.DataDummy
 
 class DetailViewModel : ViewModel() {
@@ -13,26 +13,26 @@ class DetailViewModel : ViewModel() {
         this.id = id
     }
 
-    fun getItem(): Entity {
-        lateinit var entity: Entity
+    fun getItem(): MovieEntity {
+        lateinit var movieEntity: MovieEntity
         val movieList = DataDummy.generateDummyMovies()
         val tvShowList = DataDummy.generateDummyTVShows()
 
         if (type.equals("movie", true)) {
-            for (movieEntity in movieList) {
-                if (movieEntity.id == id) {
-                    entity = movieEntity
-                }
-            }
+//            for (movieEntity in movieList) {
+//                if (movieEntity.id == id) {
+//                    movieEntity = movieEntity
+//                }
+//            }
         } else {
             for (tvShowEntity in tvShowList) {
                 if (tvShowEntity.id == id) {
-                    entity = tvShowEntity
+                    movieEntity = tvShowEntity
                 }
             }
         }
 
-        return entity
+        return movieEntity
     }
 
 }

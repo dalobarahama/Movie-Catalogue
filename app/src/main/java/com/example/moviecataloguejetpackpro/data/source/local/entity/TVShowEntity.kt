@@ -1,6 +1,6 @@
-package com.example.moviecataloguejetpackpro.data
+package com.example.moviecataloguejetpackpro.data.source.local.entity
 
-data class Entity(
+data class TVShowEntity(
     var type: String,
     var id: String,
     var title: String,

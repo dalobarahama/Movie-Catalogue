@@ -5,17 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 
 class MovieFragment : Fragment() {
     private lateinit var fragmentMoviesBinding: FragmentMoviesBinding
+    private val movieViewModel: MovieViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         fragmentMoviesBinding = FragmentMoviesBinding.inflate(inflater, container, false)
         return fragmentMoviesBinding.root
@@ -24,12 +25,16 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(
-                requireActivity(),
-                ViewModelProvider.NewInstanceFactory()
-            )[MovieViewModel::class.java]
+//            val viewModel = ViewModelProvider(
+//                requireActivity(),
+//                ViewModelProvider.NewInstanceFactory()
+//            )[MovieViewModel::class.java]
             val movieAdapter = MovieAdapter()
-            movieAdapter.setMovies(viewModel.getMovies())
+
+            movieViewModel.movieList.observe(requireActivity(), { movies ->
+                movieAdapter.setMovies(movies)
+                movieAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentMoviesBinding.moviesRecyclerview) {
                 layoutManager = LinearLayoutManager(context)

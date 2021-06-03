@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.Entity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -47,16 +47,16 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateEntity(entity: Entity) {
-        activityDetailBinding.titleDetailActivity.text = entity.title
-        activityDetailBinding.overviewDetailActivity.text = entity.overview
+    private fun populateEntity(movieEntity: MovieEntity) {
+        activityDetailBinding.titleDetailActivity.text = movieEntity.title
+        activityDetailBinding.overviewDetailActivity.text = movieEntity.overview
         activityDetailBinding.releaseDateDetailActivity.text =
-            entity.releaseDate
-        activityDetailBinding.scoreDetailActivity.text = entity.score
-        activityDetailBinding.tagsDetailActivity.text = entity.tags
+            movieEntity.releaseDate
+        activityDetailBinding.scoreDetailActivity.text = movieEntity.score
+        activityDetailBinding.tagsDetailActivity.text = movieEntity.tags
 
         Glide.with(this)
-            .load(entity.imagePath)
+            .load(movieEntity.imagePath)
             .into(activityDetailBinding.posterDetailActivity)
     }
 
