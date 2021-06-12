@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class TVShowsFragment : Fragment() {
             val tvShowAdapter = TVShowAdapter()
 
             tvShowViewModel.tvShowList.observe(requireActivity(), { tvShows ->
+                Log.i("TAG", "onViewCreated: " + tvShows[0].originalName)
                 tvShowAdapter.setTvShows(tvShows)
                 tvShowAdapter.notifyDataSetChanged()
             })
