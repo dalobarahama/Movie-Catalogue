@@ -1,9 +1,11 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecataloguejetpackpro.BuildConfig
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiConfig
@@ -14,11 +16,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TVShowViewModel : ViewModel() {
+class TVShowViewModel() : ViewModel() {
 
     companion object {
         private const val TAG = "TVShowViewModel"
-        private const val API_KEY = R.string.THE_MOVIEDB_API_KEY.toString()
+        private const val API_KEY = BuildConfig.API_KEY
     }
 
     private val _tvShowList = MutableLiveData<List<TVShow>>()

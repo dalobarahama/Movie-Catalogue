@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.data.source.remote
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,8 +20,8 @@ class ApiConfig {
                 }
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://api.themoviedb.org/3/")
                 .client(client)
                 .build()
             return retrofit.create(ApiService::class.java)

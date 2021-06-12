@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecataloguejetpackpro.BuildConfig
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiConfig
@@ -18,7 +19,7 @@ class MovieViewModel : ViewModel() {
 
     companion object {
         private const val TAG = "MovieViewModel"
-        private const val API_KEY = R.string.THE_MOVIEDB_API_KEY.toString()
+        private const val API_KEY = BuildConfig.API_KEY
     }
 
     private val _movieList = MutableLiveData<List<Movie>>()
