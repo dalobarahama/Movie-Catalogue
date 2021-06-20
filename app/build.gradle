@@ -50,16 +50,17 @@ ext {
     junitExtversion = '1.1.2'
     espressoVersion = '3.3.0'
     androidTestVersion = '1.3.0'
+    mockitoVersion = '3.6.0'
 
     materialVersion = '1.3.0'
-    recyclerViewVersion = '1.2.0'
+    recyclerViewVersion = '1.2.1'
     glideVersion = '4.12.0'
 
     retrofitVersion = '2.9.0'
     loggingInterceptorVersion = '5.0.0-alpha.2'
 
     ktxActivityVersion = '1.2.3'
-    ktxFragmentVersion = '1.3.4'
+    ktxFragmentVersion = '1.3.5'
 }
 
 dependencies {
@@ -83,6 +84,8 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidTestVersion"
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
+    testImplementation "org.mockito:mockito-core:3.11.1"
+    testImplementation "org.mockito:mockito-inline:3.11.1"
 
     //network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

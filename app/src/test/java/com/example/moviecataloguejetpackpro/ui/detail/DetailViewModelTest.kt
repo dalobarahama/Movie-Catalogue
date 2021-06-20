@@ -1,6 +1,5 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
-import com.example.moviecataloguejetpackpro.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
