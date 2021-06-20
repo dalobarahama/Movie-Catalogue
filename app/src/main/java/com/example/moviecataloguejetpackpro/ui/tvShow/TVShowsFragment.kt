@@ -1,18 +1,17 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
+import com.example.moviecataloguejetpackpro.ui.viewModel.ViewModelFactory
 
 class TVShowsFragment : Fragment() {
     private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
-    private val tvShowViewModel: TVShowViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,14 +25,14 @@ class TVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-//            val viewModel = ViewModelProvider(
-//                requireActivity(),
-//                ViewModelProvider.NewInstanceFactory()
-//            )[TVShowViewModel::class.java]
+            val factory = ViewModelFactory.getInstance()
+            val viewModel = ViewModelProvider(this, factory)[TVShowViewModel::class.java]
+
             val tvShowAdapter = TVShowAdapter()
 
-            tvShowViewModel.tvShowList.observe(requireActivity(), { tvShows ->
-                Log.i("TAG", "onViewCreated: " + tvShows[0].originalName)
+            fragmentTvShowsBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getAllTvShow().observe(requireActivity(), { tvShows ->
+                fragmentTvShowsBinding.progressBar.visibility = View.GONE
                 tvShowAdapter.setTvShows(tvShows)
                 tvShowAdapter.notifyDataSetChanged()
             })

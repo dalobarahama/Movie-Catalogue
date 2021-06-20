@@ -1,8 +1,9 @@
 package com.example.moviecataloguejetpackpro.data.source.remote
 
+import com.example.moviecataloguejetpackpro.data.source.remote.response.MovieResponse
+import com.example.moviecataloguejetpackpro.data.source.remote.response.TVShowResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface ApiService {
     @GET("movie/upcoming")

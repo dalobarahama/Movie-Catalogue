@@ -4,26 +4,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.source.remote.TVShow
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 
 class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
-    private var listTVShows = ArrayList<TVShow>()
+    private var listTVShows = ArrayList<TVShowEntity>()
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
-    fun setTvShows(tvShows: List<TVShow>?) {
-        if (tvShows == null) return
+    fun setTvShows(tvShows: List<TVShowEntity>) {
         this.listTVShows.clear()
         this.listTVShows.addAll(tvShows)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TVShowViewHolder {
-        val itemMovieTvshowBinding =
+        val itemMovieTvShowBinding =
             ItemMovieTvshowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TVShowViewHolder(itemMovieTvshowBinding)
+        return TVShowViewHolder(itemMovieTvShowBinding)
     }
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
@@ -35,7 +34,7 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
 
     class TVShowViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShow: TVShow) {
+        fun bind(tvShow: TVShowEntity) {
             with(binding) {
                 titleItemMovieTvshow.text = tvShow.name
                 overviewItemMovieTvshow.text = tvShow.overview

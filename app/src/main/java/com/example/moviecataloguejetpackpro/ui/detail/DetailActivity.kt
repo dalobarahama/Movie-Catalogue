@@ -3,7 +3,6 @@ package com.example.moviecataloguejetpackpro.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
 
@@ -42,22 +41,22 @@ class DetailActivity : AppCompatActivity() {
             val itemId = extras.getString(EXTRA_ID)
             if (itemId != null && itemType != null) {
                 viewModel.setSelectedItem(itemType, itemId)
-                populateEntity(viewModel.getItem())
+//                populateEntity(viewModel.getItem())
             }
         }
     }
 
     private fun populateEntity(movieEntity: MovieEntity) {
-        activityDetailBinding.titleDetailActivity.text = movieEntity.title
-        activityDetailBinding.overviewDetailActivity.text = movieEntity.overview
-        activityDetailBinding.releaseDateDetailActivity.text =
-            movieEntity.releaseDate
-        activityDetailBinding.scoreDetailActivity.text = movieEntity.score
-        activityDetailBinding.tagsDetailActivity.text = movieEntity.tags
-
-        Glide.with(this)
-            .load(movieEntity.imagePath)
-            .into(activityDetailBinding.posterDetailActivity)
+//        activityDetailBinding.titleDetailActivity.text = movieEntity.title
+//        activityDetailBinding.overviewDetailActivity.text = movieEntity.overview
+//        activityDetailBinding.releaseDateDetailActivity.text =
+//            movieEntity.releaseDate
+//        activityDetailBinding.scoreDetailActivity.text = movieEntity.score
+//        activityDetailBinding.tagsDetailActivity.text = movieEntity.tags
+//
+//        Glide.with(this)
+//            .load(movieEntity.imagePath)
+//            .into(activityDetailBinding.posterDetailActivity)
     }
 
 }
