@@ -11,15 +11,16 @@ class FakeRepository(private val remoteDataSource: RemoteDataSource) : DataSourc
         TODO("Not yet implemented")
     }
 
+    override fun getMovie(movieId: Int): LiveData<MovieEntity> {
+        TODO("Not yet implemented")
+    }
+
     override fun getAllTvShows(): LiveData<List<TVShowEntity>> {
-        return remoteDataSource.getTvShows()
+        TODO("Not yet implemented")
     }
 
-    override fun getMovieByPosition(position: Int): MovieEntity? {
-        return remoteDataSource.getMovieByPosition(position)
+    override fun getTvShow(tvShowId: Int): LiveData<TVShowEntity> {
+        TODO("Not yet implemented")
     }
 
-    override fun getTvShowByPosition(position: Int): TVShowEntity? {
-        return remoteDataSource.getTvShowByPosition(position)
-    }
 }
