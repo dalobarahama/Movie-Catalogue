@@ -9,4 +9,9 @@ interface DataSource {
     fun getAllMovies(): LiveData<List<MovieEntity>>
 
     fun getAllTvShows(): LiveData<List<TVShowEntity>>
+
+    fun getMovieByPosition(position: Int): MovieEntity?
+
+    fun getTvShowByPosition(position: Int): TVShowEntity?
+
 }

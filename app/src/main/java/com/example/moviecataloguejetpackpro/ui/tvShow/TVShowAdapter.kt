@@ -1,11 +1,13 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
+import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
     private var listTVShows = ArrayList<TVShowEntity>()
@@ -38,18 +40,12 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
             with(binding) {
                 titleItemMovieTvshow.text = tvShow.name
                 overviewItemMovieTvshow.text = tvShow.overview
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_TYPE, tvShow.type)
-//                    intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
-//                    intent.putExtra(DetailActivity.EXTRA_TITLE, tvShow.title)
-//                    intent.putExtra(DetailActivity.EXTRA_OVERVIEW, tvShow.overview)
-//                    intent.putExtra(DetailActivity.EXTRA_TAGS, tvShow.tags)
-//                    intent.putExtra(DetailActivity.EXTRA_RELEASE_DATE, tvShow.releaseDate)
-//                    intent.putExtra(DetailActivity.EXTRA_SCORE, tvShow.score)
-//                    intent.putExtra(DetailActivity.EXTRA_IMAGE_PATH, tvShow.imagePath)
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_ENTITY, bindingAdapterPosition)
+                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_TV_SHOW_TYPE)
+                    itemView.context.startActivity(intent)
+                }
             }
             Glide.with(itemView.context)
                 .load(IMAGE_BASE_URL + tvShow.posterPath)

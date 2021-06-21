@@ -20,7 +20,7 @@ class JsonHelper {
         private const val API_KEY = BuildConfig.API_KEY
     }
 
-    private val _movieList = MutableLiveData<List<MovieEntity>>()
+    private var _movieList = MutableLiveData<List<MovieEntity>>()
     val movieList: LiveData<List<MovieEntity>> = _movieList
 
     private val _tvShowList = MutableLiveData<List<TVShowEntity>>()
@@ -52,6 +52,10 @@ class JsonHelper {
 
     }
 
+    fun getMovieByPosition(position: Int): MovieEntity? {
+        return _movieList.value?.get(position)
+    }
+
     private fun getTVShowApi() {
         val client = ApiConfig.getApiService(API_KEY).getTVOnTheAir()
         client.enqueue(object : Callback<TVShowResponse> {
@@ -71,5 +75,9 @@ class JsonHelper {
             }
 
         })
+    }
+
+    fun getTvShowByPosition(position: Int): TVShowEntity? {
+        return _tvShowList.value?.get(position)
     }
 }

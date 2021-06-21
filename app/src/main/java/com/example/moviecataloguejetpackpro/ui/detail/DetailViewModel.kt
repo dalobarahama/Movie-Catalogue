@@ -1,36 +1,14 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
 import androidx.lifecycle.ViewModel
+import com.example.moviecataloguejetpackpro.data.Repository
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 
-class DetailViewModel : ViewModel() {
-    private lateinit var type: String
-    private lateinit var id: String
+class DetailViewModel(private val repository: Repository) : ViewModel() {
 
-    fun setSelectedItem(type: String, id: String) {
-        this.type = type
-        this.id = id
-    }
+    fun getMovieByPosition(position: Int): MovieEntity? = repository.getMovieByPosition(position)
 
-//    fun getItem(): MovieEntity {
-//        lateinit var movieEntity: MovieEntity
-//        val movieList = DataDummy.generateDummyMovies()
-//        val tvShowList = DataDummy.generateDummyTVShows()
-//
-//        if (type.equals("movie", true)) {
-//            for (movieEntity in movieList) {
-//                if (movieEntity.id == id) {
-//                    movieEntity = movieEntity
-//                }
-//            }
-//        } else {
-//            for (tvShowEntity in tvShowList) {
-//                if (tvShowEntity.id == id) {
-//                    movieEntity = tvShowEntity
-//                }
-//            }
-//        }
-//
-//        return movieEntity
-//    }
+    fun getTvShowByPosition(position: Int): TVShowEntity? = repository.getTvShowByPosition(position)
 
 }

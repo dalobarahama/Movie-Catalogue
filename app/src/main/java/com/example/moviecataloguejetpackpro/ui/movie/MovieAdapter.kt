@@ -1,5 +1,6 @@
 package com.example.moviecataloguejetpackpro.ui.movie
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
+import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovies = ArrayList<MovieEntity>()
@@ -43,18 +45,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 )
                 titleItemMovieTvshow.text = movie.title
                 overviewItemMovieTvshow.text = movie.overview
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_TYPE, movie.type)
-//                    intent.putExtra(DetailActivity.EXTRA_ID, movie.id)
-//                    intent.putExtra(DetailActivity.EXTRA_TITLE, movie.title)
-//                    intent.putExtra(DetailActivity.EXTRA_OVERVIEW, movie.overview)
-//                    intent.putExtra(DetailActivity.EXTRA_TAGS, movie.genreIds)
-//                    intent.putExtra(DetailActivity.EXTRA_RELEASE_DATE, movie.releaseDate)
-//                    intent.putExtra(DetailActivity.EXTRA_SCORE, movie.voteAverage)
-//                    intent.putExtra(DetailActivity.EXTRA_IMAGE_PATH, movie.posterPath)
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_ENTITY, bindingAdapterPosition)
+                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_MOVIE_TYPE)
+                    itemView.context.startActivity(intent)
+                }
             }
             Glide.with(itemView.context)
                 .load(IMAGE_BASE_URL + movie.posterPath)

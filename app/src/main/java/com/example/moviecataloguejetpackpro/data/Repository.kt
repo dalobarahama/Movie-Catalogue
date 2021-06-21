@@ -1,6 +1,7 @@
-package com.example.moviecataloguejetpackpro.data.source
+package com.example.moviecataloguejetpackpro.data
 
 import androidx.lifecycle.LiveData
+import com.example.moviecataloguejetpackpro.data.source.DataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
@@ -25,4 +26,11 @@ class Repository private constructor(private val remoteDataSource: RemoteDataSou
         return remoteDataSource.getTvShows()
     }
 
+    override fun getMovieByPosition(position: Int): MovieEntity? {
+        return remoteDataSource.getMovieByPosition(position)
+    }
+
+    override fun getTvShowByPosition(position: Int): TVShowEntity? {
+        return remoteDataSource.getTvShowByPosition(position)
+    }
 }

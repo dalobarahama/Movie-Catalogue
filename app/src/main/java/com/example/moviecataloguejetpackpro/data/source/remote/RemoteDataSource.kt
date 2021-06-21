@@ -19,4 +19,13 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     fun getMovies(): LiveData<List<MovieEntity>> = jsonHelper.movieList
 
     fun getTvShows(): LiveData<List<TVShowEntity>> = jsonHelper.tvShowList
+
+    fun getMovieByPosition(position: Int): MovieEntity? {
+        return jsonHelper.getMovieByPosition(position)
+    }
+
+    fun getTvShowByPosition(position: Int): TVShowEntity? {
+        return jsonHelper.getTvShowByPosition(position)
+    }
+
 }
