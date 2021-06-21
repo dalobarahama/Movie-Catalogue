@@ -1,8 +1,6 @@
 package com.example.moviecataloguejetpackpro.utils
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.moviecataloguejetpackpro.BuildConfig
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
@@ -20,15 +18,13 @@ class JsonHelper {
         private const val API_KEY = BuildConfig.API_KEY
     }
 
-    private var _movieList = MutableLiveData<List<MovieEntity>>()
-    val movieList: LiveData<List<MovieEntity>> = _movieList
+    val movieList = ArrayList<MovieEntity>()
 
-    private val _tvShowList = MutableLiveData<List<TVShowEntity>>()
-    val tvShowList: LiveData<List<TVShowEntity>> = _tvShowList
+    val tvShowList = ArrayList<TVShowEntity>()
 
     init {
-        getMovieApi()
         getTVShowApi()
+        getMovieApi()
     }
 
     private fun getMovieApi() {
@@ -39,7 +35,14 @@ class JsonHelper {
                 movieResponse: Response<MovieResponse>,
             ) {
                 if (movieResponse.isSuccessful) {
-                    _movieList.value = movieResponse.body()?.movies
+                    Log.i(TAG, "onResponse: movieResponse success")
+                    val listArray = movieResponse.body()?.movies
+                    if (listArray != null) {
+                        for (i in 0 until listArray.lastIndex) {
+                            val movie = listArray[i]
+                            movieList.add(movie)
+                        }
+                    }
                 } else {
                     Log.e(TAG, "onResponse: ${movieResponse.message()}")
                 }
@@ -49,11 +52,6 @@ class JsonHelper {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
-
-    }
-
-    fun getMovieByPosition(position: Int): MovieEntity? {
-        return _movieList.value?.get(position)
     }
 
     private fun getTVShowApi() {
@@ -64,7 +62,14 @@ class JsonHelper {
                 response: Response<TVShowResponse>,
             ) {
                 if (response.isSuccessful) {
-                    _tvShowList.value = response.body()?.tvShows
+                    Log.i(TAG, "onResponse: movieResponse success")
+                    val listArray = response.body()?.tvShows
+                    if (listArray != null) {
+                        for (i in 0 until listArray.lastIndex) {
+                            val tvShow = listArray[i]
+                            tvShowList.add(tvShow)
+                        }
+                    }
                 } else {
                     Log.e(TAG, "onResponse: ${response.message()}")
                 }
@@ -75,9 +80,5 @@ class JsonHelper {
             }
 
         })
-    }
-
-    fun getTvShowByPosition(position: Int): TVShowEntity? {
-        return _tvShowList.value?.get(position)
     }
 }

@@ -1,7 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -39,21 +39,25 @@ class DetailActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val itemPosition = extras.getInt(EXTRA_ENTITY)
+            val entityId = extras.getInt(EXTRA_ENTITY)
             val itemType = extras.getString(EXTRA_TYPE)
+            activityDetailBinding.content.visibility = View.GONE
+            activityDetailBinding.progressBar.visibility = View.VISIBLE
             if (itemType == EXTRA_MOVIE_TYPE) {
-                val movie: MovieEntity? = viewModel.getMovieByPosition(itemPosition)
-                if (movie != null) {
-                    Log.i("TAG", "detailActivity: " + movie.title)
+                viewModel.setMovieSelected(entityId)
+                viewModel.getMovie().observe(this, { movie ->
+                    activityDetailBinding.content.visibility = View.VISIBLE
+                    activityDetailBinding.progressBar.visibility = View.GONE
                     populateMovieEntity(movie)
-                }
+                })
             } else {
-                val tvShow: TVShowEntity? = viewModel.getTvShowByPosition(itemPosition)
-                if (tvShow != null) {
+                viewModel.setTvShowSelected(entityId)
+                viewModel.getTvShow().observe(this, { tvShow ->
+                    activityDetailBinding.content.visibility = View.VISIBLE
+                    activityDetailBinding.progressBar.visibility = View.GONE
                     populateTvShowEntity(tvShow)
-                }
+                })
             }
-
         }
     }
 

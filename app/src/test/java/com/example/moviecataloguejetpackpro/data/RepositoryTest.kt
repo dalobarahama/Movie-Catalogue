@@ -5,11 +5,8 @@ import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
 import com.example.moviecataloguejetpackpro.utils.DataDummy
-import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
 
 class RepositoryTest {
     private val remote = Mockito.mock(RemoteDataSource::class.java)
@@ -23,10 +20,5 @@ class RepositoryTest {
 
     @Test
     fun getAllMovies() {
-        `when`(remote.getMovies()).thenReturn(movies)
-        val movieEntities = repository.getAllMovies()
-        verify<RemoteDataSource>(remote).getMovies()
-        Assert.assertNotNull(movieEntities)
-        Assert.assertEquals(movies.value!!.size.toLong(), movieEntities.value!!.size.toLong())
     }
 }

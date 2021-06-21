@@ -1,7 +1,6 @@
 package com.example.moviecataloguejetpackpro.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ class MovieFragment : Fragment() {
 
             fragmentMoviesBinding.progressBar.visibility = View.VISIBLE
             viewModel.getAllMovies().observe(requireActivity(), { movies ->
-                Log.i("TAG", "onViewCreated: ${movies[0].title}")
+//                Log.i("TAG", "onViewCreated: ${movies[0].title}")
                 fragmentMoviesBinding.progressBar.visibility = View.GONE
                 movieAdapter.setMovies(movies)
                 movieAdapter.notifyDataSetChanged()

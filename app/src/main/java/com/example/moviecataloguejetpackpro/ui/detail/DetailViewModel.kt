@@ -1,5 +1,6 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecataloguejetpackpro.data.Repository
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
@@ -7,8 +8,18 @@ import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntit
 
 class DetailViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getMovieByPosition(position: Int): MovieEntity? = repository.getMovieByPosition(position)
+    private var movieId: Int = 0
+    private var tvShowId: Int = 0
 
-    fun getTvShowByPosition(position: Int): TVShowEntity? = repository.getTvShowByPosition(position)
+    fun setMovieSelected(movieId: Int) {
+        this.movieId = movieId
+    }
 
+    fun setTvShowSelected(tvShowId: Int) {
+        this.tvShowId = tvShowId
+    }
+
+    fun getMovie(): LiveData<MovieEntity> = repository.getMovie(movieId)
+
+    fun getTvShow(): LiveData<TVShowEntity> = repository.getTvShow(tvShowId)
 }

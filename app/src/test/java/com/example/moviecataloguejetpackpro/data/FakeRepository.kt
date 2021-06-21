@@ -7,9 +7,8 @@ import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntit
 import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
 
 class FakeRepository(private val remoteDataSource: RemoteDataSource) : DataSource {
-
     override fun getAllMovies(): LiveData<List<MovieEntity>> {
-        return remoteDataSource.getMovies()
+        TODO("Not yet implemented")
     }
 
     override fun getAllTvShows(): LiveData<List<TVShowEntity>> {
