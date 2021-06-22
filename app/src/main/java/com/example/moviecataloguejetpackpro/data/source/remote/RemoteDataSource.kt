@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
+import com.example.moviecataloguejetpackpro.utils.EspressoIdlingResource
 import com.example.moviecataloguejetpackpro.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -23,12 +24,20 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     fun getMovies(callback: LoadMoviesCallback) {
-        handler.postDelayed({ callback.onAllMoviesReceived(jsonHelper.movieList) },
+        EspressoIdlingResource.increment()
+        handler.postDelayed({
+            callback.onAllMoviesReceived(jsonHelper.movieList)
+            EspressoIdlingResource.decrement()
+        },
             SERVICE_LATENCY_IN_MILLIS)
     }
 
     fun getTvShows(callback: LoadTvShowCallback) {
-        handler.postDelayed({ callback.onAllTvShowReceived(jsonHelper.tvShowList) },
+        EspressoIdlingResource.increment()
+        handler.postDelayed({
+            callback.onAllTvShowReceived(jsonHelper.tvShowList)
+            EspressoIdlingResource.decrement()
+        },
             SERVICE_LATENCY_IN_MILLIS)
     }
 

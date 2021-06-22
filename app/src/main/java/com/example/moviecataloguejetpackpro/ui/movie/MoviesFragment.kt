@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 import com.example.moviecataloguejetpackpro.ui.viewModel.ViewModelFactory
+import kotlinx.coroutines.GlobalScope
 
 class MovieFragment : Fragment() {
     private lateinit var fragmentMoviesBinding: FragmentMoviesBinding
