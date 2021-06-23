@@ -52,6 +52,7 @@ class DetailViewModelTest {
 
         `when`(repository.getMovie(movieId)).thenReturn(movie)
         val movieItem = viewModel.getMovie().value as MovieEntity
+        verify(repository).getMovie(movieId)
         assertNotNull(movieItem)
         assertEquals(dummyMovie.id, movieItem.id)
         assertEquals(dummyMovie.overview, movieItem.overview)
@@ -70,6 +71,7 @@ class DetailViewModelTest {
 
         `when`(repository.getTvShow(tvShowId)).thenReturn(tvShow)
         val tvShowItem = viewModel.getTvShow().value as TVShowEntity
+        verify(repository).getTvShow(tvShowId)
         assertNotNull(tvShowItem)
         assertEquals(dummyTvShow.id, tvShowItem.id)
         assertEquals(dummyTvShow.overview, tvShowItem.overview)
