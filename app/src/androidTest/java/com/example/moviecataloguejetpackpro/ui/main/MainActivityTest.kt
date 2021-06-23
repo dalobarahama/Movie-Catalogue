@@ -91,12 +91,4 @@ class MainActivityTest {
         onView(withId(R.id.score_detail_activity)).check(matches(withText(dummyTVShow[0].voteAverage.toString())))
         onView(withId(R.id.poster_detail_activity)).check(matches(isDisplayed()))
     }
-
-    private fun delayTwoSeconds() {
-        try {
-            Thread.sleep(2000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-    }
 }
