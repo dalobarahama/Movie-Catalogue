@@ -2,8 +2,9 @@ package com.example.moviecataloguejetpackpro.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviecataloguejetpackpro.data.source.Repository
+import com.example.moviecataloguejetpackpro.data.Repository
 import com.example.moviecataloguejetpackpro.di.Injection
+import com.example.moviecataloguejetpackpro.ui.detail.DetailViewModel
 import com.example.moviecataloguejetpackpro.ui.movie.MovieViewModel
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowViewModel
 
@@ -30,6 +31,9 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(TVShowViewModel::class.java) -> {
                 TVShowViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(repository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

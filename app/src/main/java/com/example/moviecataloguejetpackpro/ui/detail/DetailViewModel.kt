@@ -1,36 +1,25 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecataloguejetpackpro.data.Repository
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 
-class DetailViewModel : ViewModel() {
-    private lateinit var type: String
-    private lateinit var id: String
+class DetailViewModel(private val repository: Repository) : ViewModel() {
 
-    fun setSelectedItem(type: String, id: String) {
-        this.type = type
-        this.id = id
+    private var movieId: Int = 0
+    private var tvShowId: Int = 0
+
+    fun setMovieSelected(movieId: Int) {
+        this.movieId = movieId
     }
 
-//    fun getItem(): MovieEntity {
-//        lateinit var movieEntity: MovieEntity
-//        val movieList = DataDummy.generateDummyMovies()
-//        val tvShowList = DataDummy.generateDummyTVShows()
-//
-//        if (type.equals("movie", true)) {
-//            for (movieEntity in movieList) {
-//                if (movieEntity.id == id) {
-//                    movieEntity = movieEntity
-//                }
-//            }
-//        } else {
-//            for (tvShowEntity in tvShowList) {
-//                if (tvShowEntity.id == id) {
-//                    movieEntity = tvShowEntity
-//                }
-//            }
-//        }
-//
-//        return movieEntity
-//    }
+    fun setTvShowSelected(tvShowId: Int) {
+        this.tvShowId = tvShowId
+    }
 
+    fun getMovie(): LiveData<MovieEntity> = repository.getMovie(movieId)
+
+    fun getTvShow(): LiveData<TVShowEntity> = repository.getTvShow(tvShowId)
 }

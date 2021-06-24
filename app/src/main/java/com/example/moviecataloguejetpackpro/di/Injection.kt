@@ -1,6 +1,6 @@
 package com.example.moviecataloguejetpackpro.di
 
-import com.example.moviecataloguejetpackpro.data.source.Repository
+import com.example.moviecataloguejetpackpro.data.Repository
 import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
 import com.example.moviecataloguejetpackpro.utils.JsonHelper
 
