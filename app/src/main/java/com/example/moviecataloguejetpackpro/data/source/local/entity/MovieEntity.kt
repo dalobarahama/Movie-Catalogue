@@ -6,11 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieEntity(
-    @field:SerializedName("overview")
-    val overview: String,
 
     @field:SerializedName("original_language")
     val originalLanguage: String,
+
+    @field:SerializedName("overview")
+    val overview: String,
 
     @field:SerializedName("original_title")
     val originalTitle: String,

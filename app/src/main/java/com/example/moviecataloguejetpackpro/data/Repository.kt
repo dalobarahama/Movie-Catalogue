@@ -3,7 +3,6 @@ package com.example.moviecataloguejetpackpro.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.moviecataloguejetpackpro.data.source.DataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
