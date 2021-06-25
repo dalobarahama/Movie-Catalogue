@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var listMovies = ArrayList<MovieEntity>()
+    private var listMovies = ArrayList<MovieEntityLocal>()
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
-    fun setMovies(movies: List<MovieEntity>) {
+    fun setMovies(movies: List<MovieEntityLocal>) {
         this.listMovies.clear()
         this.listMovies.addAll(movies)
     }
@@ -37,11 +37,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieEntity) {
+        fun bind(movie: MovieEntityLocal) {
             with(binding) {
                 Log.i(
                     "TAG",
-                    "onViewCreated: " + movie.originalTitle + "\n" + movie.overview
+                    "onViewCreated: " + movie.title + "\n" + movie.overview
                 )
                 titleItemMovieTvshow.text = movie.title
                 overviewItemMovieTvshow.text = movie.overview

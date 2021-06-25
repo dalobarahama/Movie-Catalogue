@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
 class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
-    private var listTVShows = ArrayList<TVShowEntity>()
+    private var listTVShows = ArrayList<TvShowEntityLocal>()
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
-    fun setTvShows(tvShows: List<TVShowEntity>) {
+    fun setTvShows(tvShows: List<TvShowEntityLocal>) {
         this.listTVShows.clear()
         this.listTVShows.addAll(tvShows)
     }
@@ -36,7 +36,7 @@ class TVShowAdapter : RecyclerView.Adapter<TVShowAdapter.TVShowViewHolder>() {
 
     class TVShowViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShow: TVShowEntity) {
+        fun bind(tvShow: TvShowEntityLocal) {
             with(binding) {
                 titleItemMovieTvshow.text = tvShow.name
                 overviewItemMovieTvshow.text = tvShow.overview

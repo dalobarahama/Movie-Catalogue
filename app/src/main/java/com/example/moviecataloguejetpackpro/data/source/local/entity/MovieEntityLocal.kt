@@ -27,5 +27,7 @@ data class MovieEntityLocal(
     @ColumnInfo(name = "vote_average")
     val voteAverage: Double,
 
+    @ColumnInfo(name = "bookmarked")
+    var bookmarked: Boolean = false,
 
     )

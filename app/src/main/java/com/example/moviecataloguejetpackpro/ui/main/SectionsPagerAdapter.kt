@@ -7,22 +7,30 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
+import com.example.moviecataloguejetpackpro.ui.movie.MoviesBookmark
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragment
+import com.example.moviecataloguejetpackpro.ui.tvShow.TvShowsBookmark
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
-        private val TAB_TITLES = intArrayOf(R.string.movies, R.string.tv_shows)
+        private val TAB_TITLES =
+            intArrayOf(R.string.movies,
+                R.string.tv_shows,
+                R.string.movies_bookmark,
+                R.string.tv_shows_bookmark)
     }
 
-    override fun getCount(): Int = 2
+    override fun getCount(): Int = 4
 
     override fun getItem(position: Int): Fragment =
         when (position) {
             0 -> MovieFragment()
             1 -> TVShowsFragment()
+            2 -> MoviesBookmark()
+            3 -> TvShowsBookmark()
             else -> Fragment()
         }
 

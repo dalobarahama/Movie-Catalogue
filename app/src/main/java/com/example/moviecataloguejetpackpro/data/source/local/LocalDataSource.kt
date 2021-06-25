@@ -23,4 +23,22 @@ class LocalDataSource private constructor(private val dao: Dao) {
     fun getMovieById(movieId: Int): LiveData<MovieEntityLocal> = dao.getMovieById(movieId)
 
     fun getTvShowById(tvShowId: Int): LiveData<TvShowEntityLocal> = dao.getTvShowId(tvShowId)
+
+    fun insertMovies(movies: List<MovieEntityLocal>) = dao.insertMovies(movies)
+
+    fun insertTvShows(tvShows: List<TvShowEntityLocal>) = dao.insertTvShows(tvShows)
+
+    fun setMovieBookmark(movie: MovieEntityLocal, newState: Boolean) {
+        movie.bookmarked = newState
+        dao.updateMovie(movie)
+    }
+
+    fun setTvShowBookmark(tvShow: TvShowEntityLocal, newState: Boolean) {
+        tvShow.bookmarked = newState
+        dao.updateTvShow(tvShow)
+    }
+
+    fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> = dao.getBookmarkedMovies()
+
+    fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> = dao.getBookmarkedTvShows()
 }

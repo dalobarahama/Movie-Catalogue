@@ -28,4 +28,6 @@ data class TvShowEntityLocal(
     @ColumnInfo(name = "name")
     val name: String,
 
-    )
+    @ColumnInfo(name = "bookmarked")
+    var bookmarked: Boolean = false,
+)

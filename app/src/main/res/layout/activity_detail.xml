@@ -89,35 +89,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tags_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/poster_detail_activity"
-            app:layout_constraintTop_toBottomOf="@id/score_view"
-            tools:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tags"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tags_detail_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Action, Adventure, Fantasy"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/overview_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
