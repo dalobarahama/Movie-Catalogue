@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
-import com.example.moviecataloguejetpackpro.ui.movie.MoviesBookmark
+import com.example.moviecataloguejetpackpro.ui.moviesBookmark.MoviesBookmarkFragment
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragment
-import com.example.moviecataloguejetpackpro.ui.tvShow.TvShowsBookmark
+import com.example.moviecataloguejetpackpro.ui.tvShowsBookmark.TvShowsBookmarkFragment
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -29,8 +29,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         when (position) {
             0 -> MovieFragment()
             1 -> TVShowsFragment()
-            2 -> MoviesBookmark()
-            3 -> TvShowsBookmark()
+            2 -> MoviesBookmarkFragment()
+            3 -> TvShowsBookmarkFragment()
             else -> Fragment()
         }
 

@@ -7,7 +7,9 @@ import com.example.moviecataloguejetpackpro.data.Repository
 import com.example.moviecataloguejetpackpro.di.Injection
 import com.example.moviecataloguejetpackpro.ui.detail.DetailViewModel
 import com.example.moviecataloguejetpackpro.ui.movie.MovieViewModel
+import com.example.moviecataloguejetpackpro.ui.moviesBookmark.MovieBookmarkViewModel
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowViewModel
+import com.example.moviecataloguejetpackpro.ui.tvShowsBookmark.TvShowBookmarkViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -35,6 +37,12 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MovieBookmarkViewModel::class.java) -> {
+                MovieBookmarkViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(TvShowBookmarkViewModel::class.java) -> {
+                TvShowBookmarkViewModel(repository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -1,11 +1,15 @@
 package com.example.moviecataloguejetpackpro.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
@@ -24,6 +28,12 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var activityDetailBinding: ActivityDetailBinding
 
+    private lateinit var viewModel: DetailViewModel
+    private var menu: Menu? = null
+
+    private var entityId: Int = 0
+    private lateinit var itemType: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,15 +44,15 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(
+        viewModel = ViewModelProvider(
             this,
             factory
         )[DetailViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
-            val entityId = extras.getInt(EXTRA_ENTITY)
-            val itemType = extras.getString(EXTRA_TYPE)
+            entityId = extras.getInt(EXTRA_ENTITY)
+            itemType = extras.getString(EXTRA_TYPE).toString()
             activityDetailBinding.content.visibility = View.GONE
             activityDetailBinding.progressBar.visibility = View.VISIBLE
             if (itemType == EXTRA_MOVIE_TYPE) {
@@ -114,4 +124,74 @@ class DetailActivity : AppCompatActivity() {
             .into(activityDetailBinding.posterDetailActivity)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        if (itemType == EXTRA_MOVIE_TYPE) {
+            viewModel.setMovieSelected(entityId)
+            viewModel.getMovie.observe(this, { movie ->
+                if (movie != null) {
+                    when (movie.status) {
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                            View.VISIBLE
+                        Status.SUCCESS -> if (movie.data != null) {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            val state = movie.data.bookmarked
+                            setBookmarkState(state)
+                        }
+                        Status.ERROR -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            })
+        } else {
+            viewModel.setTvShowSelected(entityId)
+            viewModel.getTvShow.observe(this, { tvShow ->
+                if (tvShow != null) {
+                    when (tvShow.status) {
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                            View.VISIBLE
+                        Status.SUCCESS -> if (tvShow.data != null) {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            val state = tvShow.data.bookmarked
+                            setBookmarkState(state)
+                        }
+                        Status.ERROR -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            })
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_bookmark) {
+            return if (itemType == EXTRA_MOVIE_TYPE) {
+                viewModel.setMovieBookmark()
+                true
+            } else {
+                viewModel.setTvShowBookmark()
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBookmarkState(state: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_bookmark)
+        if (state) {
+            menuItem?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_bookmark_selected)
+        } else {
+            menuItem?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_bookmark_unselected)
+        }
+    }
 }

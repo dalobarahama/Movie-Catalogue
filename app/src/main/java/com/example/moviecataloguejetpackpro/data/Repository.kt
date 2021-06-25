@@ -164,13 +164,13 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    override fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> {
-        TODO("Not yet implemented")
-    }
+    override fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> =
+        localDataSource.getBookmarkedMovies()
 
-    override fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> {
-        TODO("Not yet implemented")
-    }
+
+    override fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> =
+        localDataSource.getBookmarkedTvShows()
+
 
     override fun setMovieBookmark(movie: MovieEntityLocal, state: Boolean) =
         appExecutors.diskIO().execute { localDataSource.setMovieBookmark(movie, state) }
