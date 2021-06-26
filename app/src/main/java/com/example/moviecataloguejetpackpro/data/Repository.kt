@@ -2,6 +2,8 @@ package com.example.moviecataloguejetpackpro.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.moviecataloguejetpackpro.data.source.local.LocalDataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
@@ -34,15 +36,20 @@ class Repository private constructor(
             }
     }
 
-    override fun getAllMovies(): LiveData<Resource<List<MovieEntityLocal>>> {
+    override fun getAllMovies(): LiveData<Resource<PagedList<MovieEntityLocal>>> {
         Log.i("Repository", "getAllMovies")
         return object :
-            NetworkBoundResource<List<MovieEntityLocal>, List<MovieEntity>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<MovieEntityLocal>> =
-                localDataSource.getAllMovies()
+            NetworkBoundResource<PagedList<MovieEntityLocal>, List<MovieEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<MovieEntityLocal>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllMovies(), config).build()
+            }
 
-
-            override fun shouldFetch(data: List<MovieEntityLocal>?): Boolean =
+            override fun shouldFetch(data: PagedList<MovieEntityLocal>?): Boolean =
                 data == null || data.isEmpty()
 
 
@@ -69,15 +76,21 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllTvShows(): LiveData<Resource<List<TvShowEntityLocal>>> {
+    override fun getAllTvShows(): LiveData<Resource<PagedList<TvShowEntityLocal>>> {
         Log.i("Repository", "getAllTvShow")
         return object :
-            NetworkBoundResource<List<TvShowEntityLocal>, List<TVShowEntity>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<TvShowEntityLocal>> =
-                localDataSource.getAllTvShows()
+            NetworkBoundResource<PagedList<TvShowEntityLocal>, List<TVShowEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<TvShowEntityLocal>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllTvShows(), config).build()
+            }
 
 
-            override fun shouldFetch(data: List<TvShowEntityLocal>?): Boolean =
+            override fun shouldFetch(data: PagedList<TvShowEntityLocal>?): Boolean =
                 data == null || data.isEmpty()
 
 
@@ -164,12 +177,23 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    override fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> =
-        localDataSource.getBookmarkedMovies()
+    override fun getBookmarkedMovies(): LiveData<PagedList<MovieEntityLocal>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getBookmarkedMovies(), config).build()
+    }
 
-
-    override fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> =
-        localDataSource.getBookmarkedTvShows()
+    override fun getBookmarkedTvShows(): LiveData<PagedList<TvShowEntityLocal>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getBookmarkedTvShows(), config).build()
+    }
 
 
     override fun setMovieBookmark(movie: MovieEntityLocal, state: Boolean) =

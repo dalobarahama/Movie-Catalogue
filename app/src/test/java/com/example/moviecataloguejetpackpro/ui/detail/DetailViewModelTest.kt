@@ -4,12 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.moviecataloguejetpackpro.data.Repository
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
-import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.utils.DataDummy
+import com.example.moviecataloguejetpackpro.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,10 +32,10 @@ class DetailViewModelTest {
     private lateinit var repository: Repository
 
     @Mock
-    private lateinit var movieObserver: Observer<MovieEntity>
+    private lateinit var movieObserver: Observer<Resource<MovieEntityLocal>>
 
     @Mock
-    private lateinit var tvShowObserver: Observer<TVShowEntity>
+    private lateinit var tvShowObserver: Observer<Resource<TvShowEntityLocal>>
 
     @Before
     fun setUp() {
@@ -47,41 +46,27 @@ class DetailViewModelTest {
 
     @Test
     fun getMovie() {
-        val movie = MutableLiveData<MovieEntity>()
-        movie.value = dummyMovie
+        val dummyMovieById = Resource.success(DataDummy.generateDummyMovie(dummyMovie, true))
+        val movie = MutableLiveData<Resource<MovieEntityLocal>>()
+        movie.value = dummyMovieById
 
         `when`(repository.getMovie(movieId)).thenReturn(movie)
-        val movieItem = viewModel.getMovie().value as MovieEntity
-        verify(repository).getMovie(movieId)
-        assertNotNull(movieItem)
-        assertEquals(dummyMovie.id, movieItem.id)
-        assertEquals(dummyMovie.title, movieItem.title)
-        assertEquals(dummyMovie.overview, movieItem.overview)
-        assertEquals(dummyMovie.releaseDate, movieItem.releaseDate)
-        assertEquals(dummyMovie.voteAverage, movieItem.voteAverage)
-        assertEquals(dummyMovie.posterPath, movieItem.posterPath)
 
-        viewModel.getMovie().observeForever(movieObserver)
-        verify(movieObserver).onChanged(dummyMovie)
+        viewModel.getMovie.observeForever(movieObserver)
+
+        verify(movieObserver).onChanged(dummyMovieById)
     }
 
     @Test
     fun getTvShow() {
-        val tvShow = MutableLiveData<TVShowEntity>()
-        tvShow.value = dummyTvShow
+        val dummyTvShowId = Resource.success(DataDummy.generateDummyTvShow(dummyTvShow, true))
+        val tvShow = MutableLiveData<Resource<TvShowEntityLocal>>()
+        tvShow.value = dummyTvShowId
 
         `when`(repository.getTvShow(tvShowId)).thenReturn(tvShow)
-        val tvShowItem = viewModel.getTvShow().value as TVShowEntity
-        verify(repository).getTvShow(tvShowId)
-        assertNotNull(tvShowItem)
-        assertEquals(dummyTvShow.id, tvShowItem.id)
-        assertEquals(dummyTvShow.name, tvShowItem.name)
-        assertEquals(dummyTvShow.overview, tvShowItem.overview)
-        assertEquals(dummyTvShow.firstAirDate, tvShowItem.firstAirDate)
-        assertEquals(dummyTvShow.voteAverage, tvShowItem.voteAverage)
-        assertEquals(dummyTvShow.posterPath, tvShowItem.posterPath)
 
-        viewModel.getTvShow().observeForever(tvShowObserver)
-        verify(tvShowObserver).onChanged(dummyTvShow)
+        viewModel.getTvShow.observeForever(tvShowObserver)
+
+        verify(tvShowObserver).onChanged(dummyTvShowId)
     }
 }

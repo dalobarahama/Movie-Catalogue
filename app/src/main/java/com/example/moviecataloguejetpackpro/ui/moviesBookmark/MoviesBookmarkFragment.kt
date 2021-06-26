@@ -34,7 +34,7 @@ class MoviesBookmarkFragment : Fragment() {
             binding?.progressBar?.visibility = View.VISIBLE
             viewModel.getBookmarkMovies().observe(requireActivity(), { movies ->
                 binding?.progressBar?.visibility = View.GONE
-                adapter.setBookmarkedMovies(movies)
+                adapter.submitList(movies)
                 adapter.notifyDataSetChanged()
             })
 

@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
@@ -16,9 +17,9 @@ class LocalDataSource private constructor(private val dao: Dao) {
             }
     }
 
-    fun getAllMovies(): LiveData<List<MovieEntityLocal>> = dao.getAllMovies()
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntityLocal> = dao.getAllMovies()
 
-    fun getAllTvShows(): LiveData<List<TvShowEntityLocal>> = dao.getAllTvShows()
+    fun getAllTvShows(): DataSource.Factory<Int, TvShowEntityLocal> = dao.getAllTvShows()
 
     fun getMovieById(movieId: Int): LiveData<MovieEntityLocal> = dao.getMovieById(movieId)
 
@@ -38,7 +39,8 @@ class LocalDataSource private constructor(private val dao: Dao) {
         dao.updateTvShow(tvShow)
     }
 
-    fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> = dao.getBookmarkedMovies()
+    fun getBookmarkedMovies(): DataSource.Factory<Int, MovieEntityLocal> = dao.getBookmarkedMovies()
 
-    fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> = dao.getBookmarkedTvShows()
+    fun getBookmarkedTvShows(): DataSource.Factory<Int, TvShowEntityLocal> =
+        dao.getBookmarkedTvShows()
 }

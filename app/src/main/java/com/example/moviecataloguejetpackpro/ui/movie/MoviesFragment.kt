@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,8 +40,8 @@ class MovieFragment : Fragment() {
                             View.VISIBLE
                         Status.SUCCESS -> {
                             binding?.progressBar?.visibility = View.GONE
-                            movies.data?.let { movieAdapter.setMovies(it) }
-                            movieAdapter.notifyDataSetChanged()
+                            movieAdapter.submitList(movies.data)
+                            Log.i("TAG", "onViewCreated: " + movies.data?.get(0)?.title)
                         }
                         Status.ERROR -> {
                             binding?.progressBar?.visibility = View.GONE
@@ -52,7 +53,6 @@ class MovieFragment : Fragment() {
 
             with(binding?.moviesRecyclerview) {
                 this?.layoutManager = LinearLayoutManager(context)
-                this?.setHasFixedSize(true)
                 this?.adapter = movieAdapter
             }
         }

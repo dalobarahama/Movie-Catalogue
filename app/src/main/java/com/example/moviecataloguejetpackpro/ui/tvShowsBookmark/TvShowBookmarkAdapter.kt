@@ -3,24 +3,35 @@ package com.example.moviecataloguejetpackpro.ui.tvShowsBookmark
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
-class TvShowBookmarkAdapter : RecyclerView.Adapter<TvShowBookmarkAdapter.ViewHolder>() {
-    private val listBookmarkTvShows = ArrayList<TvShowEntityLocal>()
+class TvShowBookmarkAdapter :
+    PagedListAdapter<TvShowEntityLocal, TvShowBookmarkAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
-    }
 
-    fun setBookmarkTvShows(tvShows: List<TvShowEntityLocal>) {
-        this.listBookmarkTvShows.clear()
-        this.listBookmarkTvShows.addAll(tvShows)
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntityLocal>() {
+            override fun areItemsTheSame(
+                oldItem: TvShowEntityLocal,
+                newItem: TvShowEntityLocal,
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        this.notifyDataSetChanged()
+            override fun areContentsTheSame(
+                oldItem: TvShowEntityLocal,
+                newItem: TvShowEntityLocal,
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,11 +41,12 @@ class TvShowBookmarkAdapter : RecyclerView.Adapter<TvShowBookmarkAdapter.ViewHol
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val tvShows = listBookmarkTvShows[position]
-        holder.bind(tvShows)
+        val tvShows = getItem(position)
+        if (tvShows != null) {
+            holder.bind(tvShows)
+        }
     }
 
-    override fun getItemCount(): Int = listBookmarkTvShows.size
     inner class ViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShow: TvShowEntityLocal) {

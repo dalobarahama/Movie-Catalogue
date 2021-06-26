@@ -4,8 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.moviecataloguejetpackpro.data.Repository
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.utils.DataDummy
+import com.example.moviecataloguejetpackpro.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -30,7 +31,7 @@ class MovieViewModelTest {
     private lateinit var repository: Repository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieEntity>>
+    private lateinit var observer: Observer<Resource<List<MovieEntityLocal>>>
 
     @Before
     fun setUp() {
@@ -39,12 +40,12 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyData = DataDummy.generateDummyMovies()
-        val movies = MutableLiveData<List<MovieEntity>>()
+        val dummyData = Resource.success(DataDummy.generateDummyMovies())
+        val movies = MutableLiveData<Resource<List<MovieEntityLocal>>>()
         movies.value = dummyData
 
         `when`(repository.getAllMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getAllMovies().value
+        val movieEntities = viewModel.getAllMovies().value?.data
         Mockito.verify(repository).getAllMovies()
         assertNotNull(movieEntities)
         assertEquals(3, movieEntities?.size)

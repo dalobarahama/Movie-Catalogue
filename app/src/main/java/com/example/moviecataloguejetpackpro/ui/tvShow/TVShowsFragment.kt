@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +39,8 @@ class TVShowsFragment : Fragment() {
                         Status.LOADING -> binding?.progressBar?.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding?.progressBar?.visibility = View.GONE
-                            tvShows.data?.let { tvShowAdapter.setTvShows(it) }
-                            tvShowAdapter.notifyDataSetChanged()
+                            tvShowAdapter.submitList(tvShows.data)
+                            Log.i("TAG", "onViewCreated: " + tvShows.data?.get(0)?.name)
                         }
                         Status.ERROR -> {
                             binding?.progressBar?.visibility = View.GONE

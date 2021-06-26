@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBookmarkBinding
-import com.example.moviecataloguejetpackpro.ui.moviesBookmark.MovieBookmarkAdapter
 import com.example.moviecataloguejetpackpro.ui.viewModel.ViewModelFactory
 
 class TvShowsBookmarkFragment : Fragment() {
@@ -35,7 +34,7 @@ class TvShowsBookmarkFragment : Fragment() {
             binding?.progressBar?.visibility = View.VISIBLE
             viewModel.getBookmarkTvShows().observe(requireActivity(), { tvShows ->
                 binding?.progressBar?.visibility = View.GONE
-                adapter.setBookmarkTvShows(tvShows)
+                adapter.submitList(tvShows)
                 adapter.notifyDataSetChanged()
             })
 
