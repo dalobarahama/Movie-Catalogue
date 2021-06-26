@@ -95,17 +95,17 @@ object DataDummy {
 
         movies.add(
             MovieEntity(
-                "In 1970s London amidst the punk rock revolution, a young grifter named Estella is determined to make a name for herself with her designs. She befriends a pair of young thieves who appreciate her appetite for mischief, and together they are able to build a life for themselves on the London streets. One day, Estella’s flair for fashion catches the eye of the Baroness von Hellman, a fashion legend who is devastatingly chic and terrifyingly haute. But their relationship sets in motion a course of events and revelations that will cause Estella to embrace her wicked side and become the raucous, fashionable and revenge-bent Cruella.",
-                "en",
-                "Cruella",
+                "When LeBron and his young son Dom are trapped in a digital space by a rogue A.I., LeBron must get them home safe by leading Bugs, Lola Bunny and the whole gang of notoriously undisciplined Looney Tunes to victory over the A.I.'s digitized champions on the court. It's Tunes versus Goons in the highest-stakes challenge of his life.",
+                "When LeBron and his young son Dom are trapped in a digital space by a rogue A.I., LeBron must get them home safe by leading Bugs, Lola Bunny and the whole gang of notoriously undisciplined Looney Tunes to victory over the A.I.'s digitized champions on the court. It's Tunes versus Goons in the highest-stakes challenge of his life.",
+                "Space Jam: A New Legacy",
                 false,
-                "Cruella",
+                "Space Jam: A New Legacy",
                 genreIds,
                 "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "2021-05-26",
+                "2021-07-08",
                 1897.772,
-                8.6,
+                0.0,
                 460465,
                 false,
                 3036
@@ -160,17 +160,17 @@ object DataDummy {
 
         tvShows.add(
             TVShowEntity(
-                "2021-06-09",
-                "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant”or help fix the timeline and stop a greater threat.",
+                "2005-02-06",
+                "The series focuses on an eccentric motley crew that is the Smith family and their three housemates: Father, husband, and breadwinner Stan Smith; his better half housewife, Francine Smith; their college-aged daughter, Hayley Smith; and their high-school-aged son, Steve Smith. Outside of the Smith family, there are three additional main characters, including Hayley's boyfriend turned husband, Jeff Fischer; the family's man-in-a-goldfish-body pet, Klaus; and most notably the family's zany alien, Roger, who is \"full of masquerades, brazenness, and shocking antics.\"",
                 "en",
                 genreIds,
                 "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
                 originalCountry,
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "Loki",
+                "American Dad!",
                 6982.349,
-                8.1,
-                "Loki",
+                6.8,
+                "American Dad!",
                 84958,
                 3271
             )

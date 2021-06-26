@@ -2,6 +2,7 @@ package com.example.moviecataloguejetpackpro.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.example.moviecataloguejetpackpro.data.source.local.LocalDataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
@@ -9,6 +10,8 @@ import com.example.moviecataloguejetpackpro.data.source.remote.RemoteDataSource
 import com.example.moviecataloguejetpackpro.utils.AppExecutors
 import com.example.moviecataloguejetpackpro.utils.DataDummy
 import com.example.moviecataloguejetpackpro.utils.LiveDataTestUtil
+import com.example.moviecataloguejetpackpro.utils.PagedListUtil
+import com.example.moviecataloguejetpackpro.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
@@ -34,11 +37,13 @@ class RepositoryTest {
 
     @Test
     fun getAllMovies() {
-        val dummyMovies = MutableLiveData<List<MovieEntityLocal>>()
-        dummyMovies.value = DataDummy.generateDummyMovies()
-        `when`(local.getAllMovies()).thenReturn(dummyMovies)
+        val dataSourceFactory =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntityLocal>
+        `when`(local.getAllMovies()).thenReturn(dataSourceFactory)
+        repository.getAllMovies()
 
-        val movieEntities = LiveDataTestUtil.getValue(repository.getAllMovies())
+        val movieEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMovies()))
         verify(local).getAllMovies()
         assertNotNull(movieEntities.data)
         assertEquals(movies.size.toLong(), movieEntities.data?.size?.toLong())
@@ -46,11 +51,13 @@ class RepositoryTest {
 
     @Test
     fun getAllTvShows() {
-        val dummyTvShows = MutableLiveData<List<TvShowEntityLocal>>()
-        dummyTvShows.value = DataDummy.generateDummyTVShows()
-        `when`(local.getAllTvShows()).thenReturn(dummyTvShows)
+        val dataSourceFactory =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntityLocal>
+        `when`(local.getAllTvShows()).thenReturn(dataSourceFactory)
+        repository.getAllTvShows()
 
-        val tvShowEntities = LiveDataTestUtil.getValue(repository.getAllTvShows())
+        val tvShowEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyTVShows()))
         verify(local).getAllTvShows()
         assertNotNull(tvShowEntities.data)
         assertEquals(tvShows.size.toLong(), tvShowEntities.data?.size?.toLong())
@@ -85,25 +92,29 @@ class RepositoryTest {
 
     @Test
     fun getBookmarkedMovies() {
-        val dummyMovies = MutableLiveData<List<MovieEntityLocal>>()
-        dummyMovies.value = DataDummy.generateDummyMovies()
-        `when`(local.getBookmarkedMovies()).thenReturn(dummyMovies)
+        val dataSourceFactory =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntityLocal>
+        `when`(local.getBookmarkedMovies()).thenReturn(dataSourceFactory)
+        repository.getBookmarkedMovies()
 
-        val movieEntities = LiveDataTestUtil.getValue(repository.getBookmarkedMovies())
+        val movieEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMovies()))
         verify(local).getBookmarkedMovies()
         assertNotNull(movieEntities)
-        assertEquals(movies.size.toLong(), movieEntities.size.toLong())
+        assertEquals(movies.size.toLong(), movieEntities.data?.size?.toLong())
     }
 
     @Test
     fun getBookmarkedTvShows() {
-        val dummyTvShows = MutableLiveData<List<TvShowEntityLocal>>()
-        dummyTvShows.value = DataDummy.generateDummyTVShows()
-        `when`(local.getBookmarkedTvShows()).thenReturn(dummyTvShows)
+        val dataSourceFactory =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntityLocal>
+        `when`(local.getBookmarkedTvShows()).thenReturn(dataSourceFactory)
+        repository.getBookmarkedTvShows()
 
-        val tvShowEntities = LiveDataTestUtil.getValue(repository.getBookmarkedTvShows())
+        val tvShowEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyTVShows()))
         verify(local).getBookmarkedTvShows()
         assertNotNull(tvShowEntities)
-        assertEquals(tvShows.size.toLong(), tvShowEntities.size.toLong())
+        assertEquals(tvShows.size.toLong(), tvShowEntities.data?.size?.toLong())
     }
 }

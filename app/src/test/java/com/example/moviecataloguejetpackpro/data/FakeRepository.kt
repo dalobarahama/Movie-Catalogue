@@ -1,6 +1,8 @@
 package com.example.moviecataloguejetpackpro.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.moviecataloguejetpackpro.data.source.local.LocalDataSource
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
@@ -17,13 +19,19 @@ class FakeRepository(
     private val appExecutors: AppExecutors,
 ) : DataSource {
 
-    override fun getAllMovies(): LiveData<Resource<List<MovieEntityLocal>>> {
+    override fun getAllMovies(): LiveData<Resource<PagedList<MovieEntityLocal>>> {
         return object :
-            NetworkBoundResource<List<MovieEntityLocal>, List<MovieEntity>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<MovieEntityLocal>> =
-                localDataSource.getAllMovies()
+            NetworkBoundResource<PagedList<MovieEntityLocal>, List<MovieEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<MovieEntityLocal>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllMovies(), config).build()
+            }
 
-            override fun shouldFetch(data: List<MovieEntityLocal>?): Boolean =
+            override fun shouldFetch(data: PagedList<MovieEntityLocal>?): Boolean =
                 data == null || data.isEmpty()
 
 
@@ -50,13 +58,19 @@ class FakeRepository(
         }.asLiveData()
     }
 
-    override fun getAllTvShows(): LiveData<Resource<List<TvShowEntityLocal>>> {
+    override fun getAllTvShows(): LiveData<Resource<PagedList<TvShowEntityLocal>>> {
         return object :
-            NetworkBoundResource<List<TvShowEntityLocal>, List<TVShowEntity>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<TvShowEntityLocal>> =
-                localDataSource.getAllTvShows()
+            NetworkBoundResource<PagedList<TvShowEntityLocal>, List<TVShowEntity>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<TvShowEntityLocal>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllTvShows(), config).build()
+            }
 
-            override fun shouldFetch(data: List<TvShowEntityLocal>?): Boolean =
+            override fun shouldFetch(data: PagedList<TvShowEntityLocal>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<TVShowEntity>>> =
@@ -141,11 +155,23 @@ class FakeRepository(
         }.asLiveData()
     }
 
-    override fun getBookmarkedMovies(): LiveData<List<MovieEntityLocal>> =
-        localDataSource.getBookmarkedMovies()
+    override fun getBookmarkedMovies(): LiveData<PagedList<MovieEntityLocal>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getBookmarkedMovies(), config).build()
+    }
 
-    override fun getBookmarkedTvShows(): LiveData<List<TvShowEntityLocal>> =
-        localDataSource.getBookmarkedTvShows()
+    override fun getBookmarkedTvShows(): LiveData<PagedList<TvShowEntityLocal>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getBookmarkedTvShows(), config).build()
+    }
 
     override fun setMovieBookmark(movie: MovieEntityLocal, state: Boolean) =
         appExecutors.diskIO().execute { localDataSource.setMovieBookmark(movie, state) }
