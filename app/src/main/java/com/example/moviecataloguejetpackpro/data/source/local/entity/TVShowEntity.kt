@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TVShowEntity(
+
     @field:SerializedName("first_air_date")
     val firstAirDate: String,
 

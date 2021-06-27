@@ -1,7 +1,6 @@
-package com.example.moviecataloguejetpackpro.ui.movie
+package com.example.moviecataloguejetpackpro.ui.moviesBookmark
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -12,8 +11,8 @@ import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 
-class MovieAdapter :
-    PagedListAdapter<MovieEntityLocal, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class MovieBookmarkAdapter :
+    PagedListAdapter<MovieEntityLocal, MovieBookmarkAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
@@ -35,33 +34,36 @@ class MovieAdapter :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemMovieTvshowBinding =
             ItemMovieTvshowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemMovieTvshowBinding)
+        return ViewHolder(itemMovieTvshowBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = getItem(position)
-        if (movie != null) {
-            holder.bind(movie)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val movies = getItem(position)
+        if (movies != null) {
+            holder.bind(movies)
         }
     }
 
-    class MovieViewHolder(private val binding: ItemMovieTvshowBinding) :
+    inner class ViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntityLocal) {
             with(binding) {
-                Log.i(
+                android.util.Log.i(
                     "TAG",
                     "onViewCreated: " + movie.title + "\n" + movie.overview
                 )
                 titleItemMovieTvshow.text = movie.title
                 overviewItemMovieTvshow.text = movie.overview
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_ENTITY, movie.id)
-                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_MOVIE_TYPE)
+                    val intent = Intent(itemView.context,
+                        DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_ENTITY,
+                        movie.id)
+                    intent.putExtra(DetailActivity.EXTRA_TYPE,
+                        DetailActivity.EXTRA_MOVIE_TYPE)
                     itemView.context.startActivity(intent)
                 }
             }

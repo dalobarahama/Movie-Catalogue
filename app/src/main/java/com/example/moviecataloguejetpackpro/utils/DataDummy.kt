@@ -1,127 +1,87 @@
 package com.example.moviecataloguejetpackpro.utils
 
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 
 object DataDummy {
-    fun generateDummyMovies(): List<MovieEntity> {
-        val movies = ArrayList<MovieEntity>()
+    fun generateDummyMovies(): List<MovieEntityLocal> {
+        val movies = ArrayList<MovieEntityLocal>()
 
         val genreIds: List<Int> = mutableListOf(1, 2, 3)
 
         movies.add(
-            MovieEntity(
+            MovieEntityLocal(
+                1,
                 "Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm's half-human, half-Atlantean brother and true heir to the throne.",
-                "en",
                 "Aquaman",
-                false,
-                "Aquaman",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
                 "12/21/2018 (US)",
-                1897.772,
                 7.5,
-                460465,
                 false,
-                3036
             )
         )
         movies.add(
-            MovieEntity(
+            MovieEntityLocal(
+                2,
                 "Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm's half-human, half-Atlantean brother and true heir to the throne.",
-                "en",
-                "Aquaman",
-                false,
-                "Aquaman",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
+                "Cruella",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
                 "12/21/2018 (US)",
-                1897.772,
                 7.5,
-                460465,
                 false,
-                3036
             )
         )
         movies.add(
-            MovieEntity(
+            MovieEntityLocal(
+                3,
                 "Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm's half-human, half-Atlantean brother and true heir to the throne.",
-                "en",
-                "Aquaman",
-                false,
-                "Aquaman",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
+                "Batman",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
                 "12/21/2018 (US)",
-                1897.772,
                 7.5,
-                460465,
                 false,
-                3036
             )
         )
 
         return movies
     }
 
-    fun generateDummyTVShows(): List<TVShowEntity> {
-        val tvShows = ArrayList<TVShowEntity>()
-
-        val genreIds: List<Int> = mutableListOf(1, 2, 3)
-        val originalCountry: List<String> = mutableListOf("US")
+    fun generateDummyTVShows(): List<TvShowEntityLocal> {
+        val tvShows = ArrayList<TvShowEntityLocal>()
 
         tvShows.add(
-            TVShowEntity(
-                "2012",
+            TvShowEntityLocal(
+                1,
                 "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
-                "en",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
-                originalCountry,
+                "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "Loki",
-                6982.349,
                 8.1,
                 "Loki",
-                84958,
-                3271
+                false,
             )
         )
         tvShows.add(
-            TVShowEntity(
-                "2012",
+            TvShowEntityLocal(
+                2,
                 "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
-                "en",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
-                originalCountry,
+                "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "Loki",
-                6982.349,
                 8.1,
                 "The Flash",
-                84958,
-                3271
+                false,
             )
         )
         tvShows.add(
-            TVShowEntity(
-                "2012",
+            TvShowEntityLocal(
+                3,
                 "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
-                "en",
-                genreIds,
-                "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
-                originalCountry,
+                "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "Loki",
-                6982.349,
                 8.1,
-                "Loki",
-                84958,
-                3271
+                "Rick and Morty",
+                false,
             )
         )
 
@@ -135,17 +95,17 @@ object DataDummy {
 
         movies.add(
             MovieEntity(
-                "In 1970s London amidst the punk rock revolution, a young grifter named Estella is determined to make a name for herself with her designs. She befriends a pair of young thieves who appreciate her appetite for mischief, and together they are able to build a life for themselves on the London streets. One day, Estella’s flair for fashion catches the eye of the Baroness von Hellman, a fashion legend who is devastatingly chic and terrifyingly haute. But their relationship sets in motion a course of events and revelations that will cause Estella to embrace her wicked side and become the raucous, fashionable and revenge-bent Cruella.",
-                "en",
-                "Cruella",
+                "When LeBron and his young son Dom are trapped in a digital space by a rogue A.I., LeBron must get them home safe by leading Bugs, Lola Bunny and the whole gang of notoriously undisciplined Looney Tunes to victory over the A.I.'s digitized champions on the court. It's Tunes versus Goons in the highest-stakes challenge of his life.",
+                "When LeBron and his young son Dom are trapped in a digital space by a rogue A.I., LeBron must get them home safe by leading Bugs, Lola Bunny and the whole gang of notoriously undisciplined Looney Tunes to victory over the A.I.'s digitized champions on the court. It's Tunes versus Goons in the highest-stakes challenge of his life.",
+                "Space Jam: A New Legacy",
                 false,
-                "Cruella",
+                "Space Jam: A New Legacy",
                 genreIds,
                 "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "2021-05-26",
+                "2021-07-08",
                 1897.772,
-                8.6,
+                0.0,
                 460465,
                 false,
                 3036
@@ -200,17 +160,17 @@ object DataDummy {
 
         tvShows.add(
             TVShowEntity(
-                "2021-06-09",
-                "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant”or help fix the timeline and stop a greater threat.",
+                "2005-02-06",
+                "The series focuses on an eccentric motley crew that is the Smith family and their three housemates: Father, husband, and breadwinner Stan Smith; his better half housewife, Francine Smith; their college-aged daughter, Hayley Smith; and their high-school-aged son, Steve Smith. Outside of the Smith family, there are three additional main characters, including Hayley's boyfriend turned husband, Jeff Fischer; the family's man-in-a-goldfish-body pet, Klaus; and most notably the family's zany alien, Roger, who is \"full of masquerades, brazenness, and shocking antics.\"",
                 "en",
                 genreIds,
                 "https://image.tmdb.org/t/p/w500/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg",
                 originalCountry,
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                "Loki",
+                "American Dad!",
                 6982.349,
-                8.1,
-                "Loki",
+                6.8,
+                "American Dad!",
                 84958,
                 3271
             )
@@ -251,5 +211,21 @@ object DataDummy {
         )
 
         return tvShows
+    }
+
+    fun generateDummyMovie(
+        movieEntityLocal: MovieEntityLocal,
+        bookmarked: Boolean,
+    ): MovieEntityLocal {
+        movieEntityLocal.bookmarked = bookmarked
+        return movieEntityLocal
+    }
+
+    fun generateDummyTvShow(
+        tvShowEntityLocal: TvShowEntityLocal,
+        bookmarked: Boolean,
+    ): TvShowEntityLocal {
+        tvShowEntityLocal.bookmarked = bookmarked
+        return tvShowEntityLocal
     }
 }

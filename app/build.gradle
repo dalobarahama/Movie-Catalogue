@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 def file = rootProject.file("gradle.properties")
@@ -55,6 +56,7 @@ ext {
     mockitoKotlinVersion = '2.2.0'
     idleResourceVersion = '3.3.0'
 
+    pagingVersion = '2.1.1'
 
     materialVersion = '1.3.0'
     recyclerViewVersion = '1.2.1'
@@ -62,9 +64,13 @@ ext {
 
     retrofitVersion = '2.9.0'
     loggingInterceptorVersion = '5.0.0-alpha.2'
+    loopjVersion = implementation = '1.4.9'
 
     ktxActivityVersion = '1.2.3'
     ktxFragmentVersion = '1.3.5'
+
+    roomVersion = '2.3.0'
+    roomRuntimeVersion = '2.3.0'
 }
 
 dependencies {
@@ -96,14 +102,21 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.2"
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
 
-
     //network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+    implementation "com.loopj.android:android-async-http:$loopjVersion"
 
     //ktx
     implementation "androidx.fragment:fragment-ktx:$ktxFragmentVersion"
     implementation "androidx.activity:activity-ktx:$ktxActivityVersion"
+
+    //room
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    //paging
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
 }
