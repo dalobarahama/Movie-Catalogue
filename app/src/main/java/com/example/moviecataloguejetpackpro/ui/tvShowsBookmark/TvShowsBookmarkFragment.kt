@@ -38,9 +38,10 @@ class TvShowsBookmarkFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             })
 
-            binding?.moviesRecyclerview?.layoutManager = LinearLayoutManager(requireActivity())
-            binding?.moviesRecyclerview?.setHasFixedSize(true)
-            binding?.moviesRecyclerview?.adapter = adapter
+            binding?.tvShowsBookmarkRecyclerview?.layoutManager =
+                LinearLayoutManager(requireActivity())
+            binding?.tvShowsBookmarkRecyclerview?.setHasFixedSize(true)
+            binding?.tvShowsBookmarkRecyclerview?.adapter = adapter
         }
     }
 }

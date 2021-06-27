@@ -38,9 +38,10 @@ class MoviesBookmarkFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             })
 
-            binding?.moviesRecyclerview?.layoutManager = LinearLayoutManager(requireActivity())
-            binding?.moviesRecyclerview?.setHasFixedSize(true)
-            binding?.moviesRecyclerview?.adapter = adapter
+            binding?.moviesBookmarkRecyclerview?.layoutManager =
+                LinearLayoutManager(requireActivity())
+            binding?.moviesBookmarkRecyclerview?.setHasFixedSize(true)
+            binding?.moviesBookmarkRecyclerview?.adapter = adapter
         }
     }
 }
