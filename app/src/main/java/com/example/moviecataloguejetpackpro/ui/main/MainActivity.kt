@@ -1,10 +1,10 @@
 package com.example.moviecataloguejetpackpro.ui.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.example.moviecataloguejetpackpro.databinding.ActivityMainBinding
+import com.example.moviecataloguejetpackpro.ui.common.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
