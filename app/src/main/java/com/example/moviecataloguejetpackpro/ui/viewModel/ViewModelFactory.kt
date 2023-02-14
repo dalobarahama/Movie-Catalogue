@@ -27,7 +27,7 @@ class ViewModelFactory private constructor(private val repository: Repository) :
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
                 MovieViewModel(repository) as T

@@ -33,7 +33,7 @@ class MovieFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
             val movieAdapter = MovieAdapter()
-            viewModel.getAllMovies().observe(requireActivity(), { movies ->
+            viewModel.getAllMovies().observe(requireActivity()) { movies ->
                 if (movies != null) {
                     when (movies.status) {
                         Status.LOADING -> binding?.progressBar?.visibility =
@@ -41,7 +41,7 @@ class MovieFragment : Fragment() {
                         Status.SUCCESS -> {
                             binding?.progressBar?.visibility = View.GONE
                             movieAdapter.submitList(movies.data)
-                            Log.i("TAG", "onViewCreated: " + movies.data?.get(0)?.title)
+//                            Log.i("TAG", "onViewCreated: " + movies.data?.get(0)?.title)
                         }
                         Status.ERROR -> {
                             binding?.progressBar?.visibility = View.GONE
@@ -49,7 +49,7 @@ class MovieFragment : Fragment() {
                         }
                     }
                 }
-            })
+            }
 
             with(binding?.moviesRecyclerview) {
                 this?.layoutManager = LinearLayoutManager(context)
