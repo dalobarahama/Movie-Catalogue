@@ -1,14 +1,14 @@
 package com.example.moviecataloguejetpackpro
 
 import android.app.Application
-import com.example.moviecataloguejetpackpro.common.composition.AppComposition
+import com.example.moviecataloguejetpackpro.common.composition.app.AppModule
 
 class MyApp : Application() {
 
-    lateinit var appComposition: AppComposition
+    lateinit var appModule: AppModule
 
     override fun onCreate() {
-        appComposition = AppComposition(this)
+        appModule = AppModule(this)
         super.onCreate()
     }
 

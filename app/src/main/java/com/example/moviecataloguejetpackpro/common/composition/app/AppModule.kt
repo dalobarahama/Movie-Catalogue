@@ -1,4 +1,4 @@
-package com.example.moviecataloguejetpackpro.common.composition
+package com.example.moviecataloguejetpackpro.common.composition.app
 
 import android.app.Application
 import com.example.moviecataloguejetpackpro.BuildConfig
@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AppComposition(val application: Application) {
+class AppModule(val application: Application) {
 
     private val client by lazy {
         OkHttpClient.Builder()
