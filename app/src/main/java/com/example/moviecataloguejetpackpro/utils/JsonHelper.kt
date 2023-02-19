@@ -6,7 +6,6 @@ import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiConfig
 import com.example.moviecataloguejetpackpro.data.source.remote.response.MovieResponse
-import com.example.moviecataloguejetpackpro.data.source.remote.response.TVShowResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,30 +54,30 @@ class JsonHelper {
     }
 
     private fun getTVShowApi() {
-        val client = ApiConfig.getApiService(API_KEY).getTVOnTheAir()
-        client.enqueue(object : Callback<TVShowResponse> {
-            override fun onResponse(
-                call: Call<TVShowResponse>,
-                response: Response<TVShowResponse>,
-            ) {
-                if (response.isSuccessful) {
-                    Log.i(TAG, "onResponse: movieResponse success")
-                    val listArray = response.body()?.tvShows
-                    if (listArray != null) {
-                        for (i in 0 until listArray.lastIndex) {
-                            val tvShow = listArray[i]
-                            tvShowList.add(tvShow)
-                        }
-                    }
-                } else {
-                    Log.e(TAG, "onResponse: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<TVShowResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-
-        })
+//        val client = ApiConfig.getApiService(API_KEY).getTVOnTheAir()
+//        client.enqueue(object : Callback<TVShowResponse> {
+//            override fun onResponse(
+//                call: Call<TVShowResponse>,
+//                response: Response<TVShowResponse>,
+//            ) {
+//                if (response.isSuccessful) {
+//                    Log.i(TAG, "onResponse: movieResponse success")
+//                    val listArray = response.body()?.tvShows
+//                    if (listArray != null) {
+//                        for (i in 0 until listArray.lastIndex) {
+//                            val tvShow = listArray[i]
+//                            tvShowList.add(tvShow)
+//                        }
+//                    }
+//                } else {
+//                    Log.e(TAG, "onResponse: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<TVShowResponse>, t: Throwable) {
+//                Log.e(TAG, "onFailure: ${t.message.toString()}")
+//            }
+//
+//        })
     }
 }

@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,20 +9,24 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
-import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
-import com.example.moviecataloguejetpackpro.data.source.remote.response.TVShowResponse
+import com.example.moviecataloguejetpackpro.data.source.remote.FetchTvShowUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
 import com.example.moviecataloguejetpackpro.ui.viewModel.ViewModelFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class TVShowsFragment : BaseFragment() {
     private var _fragmentTvShowsBinding: FragmentTvShowsBinding? = null
     private val binding get() = _fragmentTvShowsBinding
 
-    private lateinit var apiService: ApiService
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    @Inject
+    lateinit var fetchTvShowUseCase: FetchTvShowUseCase
 
     private lateinit var tvShowAdapterRV: TVShowAdapterRV
 
@@ -33,7 +38,7 @@ class TVShowsFragment : BaseFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        apiService = appComposition.apiService
+        injector.inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -74,25 +79,26 @@ class TVShowsFragment : BaseFragment() {
     }
 
     private fun fetchTvShowsFromApi() {
-        binding?.progressBar!!.visibility = View.VISIBLE
-        val client = apiService.getTVOnTheAir()
-        client.enqueue(object : Callback<TVShowResponse> {
-            override fun onResponse(
-                call: Call<TVShowResponse>,
-                response: Response<TVShowResponse>,
-            ) {
-                binding?.progressBar!!.visibility = View.GONE
-                tvShowList = response.body()?.tvShows ?: emptyList()
-
-                showData(tvShowList)
+        Log.d("fetchTvShow", "fetchTvShowsFromApi called")
+        coroutineScope.launch {
+            showLoading()
+            try {
+                val result = fetchTvShowUseCase.fetchTvOnTheAir()
+                when (result) {
+                    is FetchTvShowUseCase.Result.Success -> {
+                        Log.d("fetchTvShow", "fetchTvShowsFromApi: ${result.tvShows.size}")
+                        showData(result.tvShows)
+                    }
+                    is FetchTvShowUseCase.Result.Failure -> onFetchFailed()
+                }
+            } finally {
+                hideLoading()
             }
+        }
+    }
 
-            override fun onFailure(call: Call<TVShowResponse>, t: Throwable) {
-                binding?.progressBar!!.visibility = View.GONE
-                Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-            }
-
-        })
+    private fun onFetchFailed() {
+        Toast.makeText(requireContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
     }
 
     private fun showData(tvShowList: List<TVShowEntity>) {
@@ -104,6 +110,14 @@ class TVShowsFragment : BaseFragment() {
             this?.setHasFixedSize(true)
             this?.adapter = tvShowAdapterRV
         }
+    }
+
+    private fun showLoading() {
+        binding?.progressBar!!.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        binding?.progressBar!!.visibility = View.GONE
     }
 
     override fun onDestroy() {
