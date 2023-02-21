@@ -42,7 +42,7 @@ class AppModule(val application: Application) {
 
     @Provides
     @AppScope
-    fun apiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
+    fun apiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
     companion object {
         private const val API_KEY = BuildConfig.API_KEY

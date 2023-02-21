@@ -27,30 +27,30 @@ class JsonHelper {
     }
 
     private fun getMovieApi() {
-        val client = ApiConfig.getApiService(API_KEY).getUpcomingMovies()
-        client.enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                movieResponse: Response<MovieResponse>,
-            ) {
-                if (movieResponse.isSuccessful) {
-                    Log.i(TAG, "onResponse: movieResponse success")
-                    val listArray = movieResponse.body()?.movies
-                    if (listArray != null) {
-                        for (i in 0 until listArray.lastIndex) {
-                            val movie = listArray[i]
-                            movieList.add(movie)
-                        }
-                    }
-                } else {
-                    Log.e(TAG, "onResponse: ${movieResponse.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
+//        val client = ApiConfig.getApiService(API_KEY).getUpcomingMovies()
+//        client.enqueue(object : Callback<MovieResponse> {
+//            override fun onResponse(
+//                call: Call<MovieResponse>,
+//                movieResponse: Response<MovieResponse>,
+//            ) {
+//                if (movieResponse.isSuccessful) {
+//                    Log.i(TAG, "onResponse: movieResponse success")
+//                    val listArray = movieResponse.body()?.movies
+//                    if (listArray != null) {
+//                        for (i in 0 until listArray.lastIndex) {
+//                            val movie = listArray[i]
+//                            movieList.add(movie)
+//                        }
+//                    }
+//                } else {
+//                    Log.e(TAG, "onResponse: ${movieResponse.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+//                Log.e(TAG, "onFailure: ${t.message.toString()}")
+//            }
+//        })
     }
 
     private fun getTVShowApi() {

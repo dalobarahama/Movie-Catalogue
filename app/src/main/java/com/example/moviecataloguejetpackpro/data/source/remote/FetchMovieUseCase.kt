@@ -12,22 +12,22 @@ class FetchMovieUseCase(private val apiService: ApiService) {
         object Failure : Result()
     }
 
-//    suspend fun fetchUpcomingMovies(): Result {
-//        return withContext(Dispatchers.IO) {
-//            try {
-//                val response = apiService.getUpcomingMovies()
-//                if (response.isSuccessful && response.body() != null) {
-//                    return@withContext Result.Success(response.body()!!.movies)
-//                } else {
-//                    return@withContext Result.Failure
-//                }
-//            } catch (t: Throwable) {
-//                if (t !is CancellationException) {
-//                    return@withContext Result.Failure
-//                } else {
-//                    throw t
-//                }
-//            }
-//        }
-//    }
+    suspend fun fetchUpcomingMovies(): Result {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getUpcomingMovies()
+                if (response.isSuccessful && response.body() != null) {
+                    return@withContext Result.Success(response.body()!!.movies)
+                } else {
+                    return@withContext Result.Failure
+                }
+            } catch (t: Throwable) {
+                if (t !is CancellationException) {
+                    return@withContext Result.Failure
+                } else {
+                    throw t
+                }
+            }
+        }
+    }
 }
