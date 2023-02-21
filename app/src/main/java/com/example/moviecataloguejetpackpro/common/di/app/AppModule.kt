@@ -2,6 +2,8 @@ package com.example.moviecataloguejetpackpro.common.di.app
 
 import android.app.Application
 import com.example.moviecataloguejetpackpro.BuildConfig
+import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
+import com.example.moviecataloguejetpackpro.data.source.local.room.MovieTvShowDatabase
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
 import dagger.Module
 import dagger.Provides
@@ -43,6 +45,11 @@ class AppModule(val application: Application) {
     @Provides
     @AppScope
     fun apiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    @AppScope
+    fun localDatabase(application: Application): MovieTvShowDatabase =
+        MovieTvShowDatabase.getInstance(application.applicationContext)
 
     companion object {
         private const val API_KEY = BuildConfig.API_KEY
