@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.FetchMovieUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
-import com.example.moviecataloguejetpackpro.ui.viewModel.ViewModelFactory
-import com.example.moviecataloguejetpackpro.vo.Status
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,34 +41,6 @@ class MovieFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
-//            val factory = ViewModelFactory.getInstance(requireActivity())
-//            val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-//
-//            val movieAdapter = MovieAdapter()
-//            viewModel.getAllMovies().observe(requireActivity()) { movies ->
-//                if (movies != null) {
-//                    when (movies.status) {
-//                        Status.LOADING -> binding?.progressBar?.visibility =
-//                            View.VISIBLE
-//                        Status.SUCCESS -> {
-//                            binding?.progressBar?.visibility = View.GONE
-//                            movieAdapter.submitList(movies.data)
-////                            Log.i("TAG", "onViewCreated: " + movies.data?.get(0)?.title)
-//                        }
-//                        Status.ERROR -> {
-//                            binding?.progressBar?.visibility = View.GONE
-//                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
-//            }
-//
-//            with(binding?.moviesRecyclerview) {
-//                this?.layoutManager = LinearLayoutManager(context)
-//                this?.adapter = movieAdapter
-//            }
-        }
     }
 
     private fun fetchMoviesFromApi() {

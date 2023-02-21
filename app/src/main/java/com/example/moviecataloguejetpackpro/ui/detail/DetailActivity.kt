@@ -57,7 +57,7 @@ class DetailActivity : AppCompatActivity() {
             activityDetailBinding.progressBar.visibility = View.VISIBLE
             if (itemType == EXTRA_MOVIE_TYPE) {
                 viewModel.setMovieSelected(entityId)
-                viewModel.getMovie.observe(this, { movie ->
+                viewModel.getMovie.observe(this) { movie ->
                     if (movie != null) {
                         when (movie.status) {
                             Status.LOADING -> activityDetailBinding.progressBar.visibility =
@@ -74,10 +74,10 @@ class DetailActivity : AppCompatActivity() {
                             }
                         }
                     }
-                })
+                }
             } else {
                 viewModel.setTvShowSelected(entityId)
-                viewModel.getTvShow.observe(this, { tvShow ->
+                viewModel.getTvShow.observe(this) { tvShow ->
                     if (tvShow != null) {
                         when (tvShow.status) {
                             Status.LOADING -> activityDetailBinding.progressBar.visibility =
@@ -95,7 +95,7 @@ class DetailActivity : AppCompatActivity() {
                             }
                         }
                     }
-                })
+                }
             }
         }
     }
@@ -129,7 +129,7 @@ class DetailActivity : AppCompatActivity() {
         this.menu = menu
         if (itemType == EXTRA_MOVIE_TYPE) {
             viewModel.setMovieSelected(entityId)
-            viewModel.getMovie.observe(this, { movie ->
+            viewModel.getMovie.observe(this) { movie ->
                 if (movie != null) {
                     when (movie.status) {
                         Status.LOADING -> activityDetailBinding.progressBar.visibility =
@@ -145,10 +145,10 @@ class DetailActivity : AppCompatActivity() {
                         }
                     }
                 }
-            })
+            }
         } else {
             viewModel.setTvShowSelected(entityId)
-            viewModel.getTvShow.observe(this, { tvShow ->
+            viewModel.getTvShow.observe(this) { tvShow ->
                 if (tvShow != null) {
                     when (tvShow.status) {
                         Status.LOADING -> activityDetailBinding.progressBar.visibility =
@@ -165,7 +165,7 @@ class DetailActivity : AppCompatActivity() {
                         }
                     }
                 }
-            })
+            }
         }
         return true
     }
