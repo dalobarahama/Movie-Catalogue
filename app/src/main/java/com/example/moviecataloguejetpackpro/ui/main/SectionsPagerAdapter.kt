@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.moviecataloguejetpackpro.R
+import com.example.moviecataloguejetpackpro.ui.home.HomeFragment
 import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
 import com.example.moviecataloguejetpackpro.ui.moviesBookmark.MoviesBookmarkFragment
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragment

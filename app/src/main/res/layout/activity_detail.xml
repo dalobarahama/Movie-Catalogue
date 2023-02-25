@@ -16,7 +16,7 @@
             android:id="@+id/poster_detail_activity"
             android:layout_width="155dp"
             android:layout_height="230dp"
-            android:src="@drawable/poster_aquaman"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

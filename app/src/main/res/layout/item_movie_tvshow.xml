@@ -18,7 +18,7 @@
             android:id="@+id/poster_item_movie_tvshow"
             android:layout_width="80dp"
             android:layout_height="120dp"
-            android:src="@drawable/poster_got"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
