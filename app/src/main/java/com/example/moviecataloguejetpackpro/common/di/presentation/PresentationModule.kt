@@ -1,6 +1,5 @@
 package com.example.moviecataloguejetpackpro.common.di.presentation
 
-import com.example.moviecataloguejetpackpro.data.source.local.room.MovieTvShowDatabase
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
 import com.example.moviecataloguejetpackpro.data.source.remote.FetchMovieUseCase
 import com.example.moviecataloguejetpackpro.data.source.remote.FetchTvShowUseCase
@@ -15,7 +14,4 @@ class PresentationModule {
 
     @Provides
     fun fetchTvShowUseCase(apiService: ApiService) = FetchTvShowUseCase(apiService)
-
-    @Provides
-    fun localDao(localDatabase: MovieTvShowDatabase) = localDatabase.dao()
 }

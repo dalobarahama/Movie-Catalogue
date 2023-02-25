@@ -2,7 +2,6 @@ package com.example.moviecataloguejetpackpro.common.di.app
 
 import android.app.Application
 import com.example.moviecataloguejetpackpro.BuildConfig
-import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
 import com.example.moviecataloguejetpackpro.data.source.local.room.MovieTvShowDatabase
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
 import dagger.Module

@@ -11,6 +11,8 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
 
     class ListViewHolder(private val binding: ItemMovieTvshowBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val titleText = binding.titleItemMovieTvshow
+
         fun bind(movieEntity: MovieEntity) {
             binding.titleItemMovieTvshow.text = movieEntity.title
             binding.overviewItemMovieTvshow.text = movieEntity.overview
@@ -20,10 +22,16 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
         }
     }
 
+    private lateinit var onClick: OnClick
+
     private var movieList: List<MovieEntity> = emptyList()
 
     fun submitList(movieList: List<MovieEntity>) {
         this.movieList = movieList
+    }
+
+    fun setOnClick(onClick: OnClick){
+        this.onClick = onClick
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -36,6 +44,9 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
         val movieEntity = movieList[position]
 
         holder.bind(movieEntity)
+        holder.titleText.setOnClickListener {
+            onClick.onItemClick(movieEntity.id)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -44,5 +55,9 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+    }
+
+    interface OnClick {
+        fun onItemClick(id: Int)
     }
 }
