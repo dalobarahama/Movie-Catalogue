@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
-import com.example.moviecataloguejetpackpro.data.source.remote.FetchTvShowUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
 import kotlinx.coroutines.launch

@@ -1,8 +1,8 @@
 package com.example.moviecataloguejetpackpro.common.di.presentation
 
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
-import com.example.moviecataloguejetpackpro.data.source.remote.FetchMovieUseCase
-import com.example.moviecataloguejetpackpro.data.source.remote.FetchTvShowUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
 import dagger.Module
 import dagger.Provides
 

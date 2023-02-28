@@ -1,7 +1,8 @@
-package com.example.moviecataloguejetpackpro.data.source.remote
+package com.example.moviecataloguejetpackpro.data.source.remote.usecase
 
 import android.util.Log
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
+import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

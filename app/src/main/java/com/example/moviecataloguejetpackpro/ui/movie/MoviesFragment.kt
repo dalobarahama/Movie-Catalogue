@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
-import com.example.moviecataloguejetpackpro.data.source.remote.FetchMovieUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
