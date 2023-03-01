@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTrendingUseCase
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentHomeBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
@@ -18,6 +19,9 @@ class HomeFragment : BaseFragment() {
     private val binding get() = _fragmentBinding
 
     @Inject
+    lateinit var fetchTrendingUseCase: FetchTrendingUseCase
+
+    @Inject
     lateinit var fetchMovieUseCase: FetchMovieUseCase
 
     @Inject
@@ -25,7 +29,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        fetchMovieFromApi()
+        fetchTrendingFromApi()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +45,27 @@ class HomeFragment : BaseFragment() {
         return binding?.root
     }
 
+    private fun fetchTrendingFromApi(){
+        coroutineScope.launch {
+            showLoading()
+            try {
+                when (val result = fetchTrendingUseCase.fetchTrending()) {
+                    is FetchTrendingUseCase.Result.Success -> bindData(result.trendingList)
+
+                    is FetchTrendingUseCase.Result.Failure -> onFetchFailed()
+                }
+            } finally {
+                hideLoading()
+            }
+        }
+    }
+
     private fun fetchMovieFromApi() {
         coroutineScope.launch {
             showLoading()
             try {
                 when (val result = fetchMovieUseCase.fetchUpcomingMovies()) {
-                    is FetchMovieUseCase.Result.Success -> bindData(result.movies)
+                    is FetchMovieUseCase.Result.Success -> {}
 
                     is FetchMovieUseCase.Result.Failure -> onFetchFailed()
                 }
@@ -60,9 +79,9 @@ class HomeFragment : BaseFragment() {
         Toast.makeText(requireContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
     }
 
-    private fun bindData(movies: List<MovieEntity>) {
-        val homeAdapter = HomeAdapter()
-        homeAdapter.submitList(movies)
+    private fun bindData(trendingList: List<TrendingEntity>) {
+        val homeAdapter = TrendingAdapter()
+        homeAdapter.submitList(trendingList)
 
         with(binding?.rvTrending) {
             this?.setHasFixedSize(true)

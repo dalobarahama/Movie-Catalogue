@@ -4,24 +4,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTrendingBinding
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.HomeViewHolder>() {
     class HomeViewHolder(private val binding: ItemMovieTrendingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movieEntity: MovieEntity) {
+        fun bind(trendingEntity: TrendingEntity) {
             Glide.with(itemView.context)
-                .load(IMAGE_BASE_URL + movieEntity.posterPath)
+                .load(IMAGE_BASE_URL + trendingEntity.posterPath)
                 .into(binding.ivItemMovie)
         }
     }
 
-    private var movieList: List<MovieEntity> = emptyList()
+    private var trendingList: List<TrendingEntity> = emptyList()
 
-    fun submitList(movieList: List<MovieEntity>) {
-        this.movieList = movieList
+    fun submitList(movieList: List<TrendingEntity>) {
+        this.trendingList = movieList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -31,13 +31,13 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return trendingList.size
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val movieEntity = movieList[position]
+        val trendingEntity = trendingList[position]
 
-        holder.bind(movieEntity)
+        holder.bind(trendingEntity)
     }
 
     companion object {
