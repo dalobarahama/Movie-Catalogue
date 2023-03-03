@@ -2,6 +2,7 @@ package com.example.moviecataloguejetpackpro.common.di.presentation
 
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
+import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchNowPlayingMoviesUseCase
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTrendingUseCase
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
 import dagger.Module
@@ -18,4 +19,7 @@ class PresentationModule {
 
     @Provides
     fun fetchTrendingUseCase(apiService: ApiService) = FetchTrendingUseCase(apiService)
+
+    @Provides
+    fun fetchNowPlayingMoviesUseCase(apiService: ApiService) = FetchNowPlayingMoviesUseCase(apiService)
 }

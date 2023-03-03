@@ -14,6 +14,9 @@ interface ApiService {
     @GET("tv/on_the_air")
     suspend fun getTVOnTheAir(): Response<TVShowResponse>
 
+    @GET("movie/now_playing")
+    suspend fun getNowPlayingMovies(): Response<MovieResponse>
+
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrending(
         @Path("media_type") mediaType: String,
