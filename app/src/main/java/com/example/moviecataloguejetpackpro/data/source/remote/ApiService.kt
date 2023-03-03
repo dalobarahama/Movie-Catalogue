@@ -11,11 +11,14 @@ interface ApiService {
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): Response<MovieResponse>
 
+    @GET("movie/now_playing")
+    suspend fun getNowPlaying(): Response<MovieResponse>
+
     @GET("tv/on_the_air")
     suspend fun getTVOnTheAir(): Response<TVShowResponse>
 
-    @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(): Response<MovieResponse>
+    @GET("tv/popular")
+    suspend fun getTVPopular(): Response<TVShowResponse>
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrending(

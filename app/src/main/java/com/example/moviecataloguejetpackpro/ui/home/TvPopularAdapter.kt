@@ -4,26 +4,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemNewMoviesBinding
 
-class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.HomeViewHolder>() {
+class TvPopularAdapter : RecyclerView.Adapter<TvPopularAdapter.HomeViewHolder>() {
     class HomeViewHolder(private val binding: ItemNewMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movieEntity: MovieEntity) {
-            binding.tvItemNewMoviesTitle.text = movieEntity.title
+        fun bind(tvShowEntity: TVShowEntity) {
+            binding.tvItemNewMoviesTitle.text = tvShowEntity.name
 
             Glide.with(itemView.context)
-                .load(IMAGE_BASE_URL + movieEntity.posterPath)
+                .load(IMAGE_BASE_URL + tvShowEntity.posterPath)
                 .into(binding.ivItemNewMovies)
         }
     }
 
-    private var movieList: List<MovieEntity> = emptyList()
+    private var tvShowList: List<TVShowEntity> = emptyList()
 
-    fun submitList(movieList: List<MovieEntity>) {
-        this.movieList = movieList
+    fun submitList(tvShowList: List<TVShowEntity>) {
+        this.tvShowList = tvShowList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -33,13 +33,13 @@ class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.HomeViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return tvShowList.size
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val movieEntity = movieList[position]
+        val tvShowEntity = tvShowList[position]
 
-        holder.bind(movieEntity)
+        holder.bind(tvShowEntity)
     }
 
     companion object {

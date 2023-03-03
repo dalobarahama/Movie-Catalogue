@@ -6,16 +6,16 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class FetchNowPlayingMoviesUseCase(private val apiService: ApiService) {
+class FetchNowPlayingUseCase(private val apiService: ApiService) {
     sealed class Result {
         data class Success(val movies: List<MovieEntity>) : Result()
         object Failure : Result()
     }
 
-    suspend fun fetchNowPlayingMovies(): Result {
+    suspend fun fetchNowPlaying(): Result {
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.getNowPlayingMovies()
+                val response = apiService.getNowPlaying()
                 if (response.isSuccessful && response.body() != null) {
                     return@withContext Result.Success(response.body()!!.movies)
                 } else {
