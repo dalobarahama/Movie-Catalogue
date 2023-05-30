@@ -55,7 +55,7 @@ class HomeFragment : BaseFragment() {
 
     private fun fetchTrendingFromApi() {
         coroutineScope.launch {
-            showLoading()
+            binding?.trendingProgressBar?.visibility = View.VISIBLE
             try {
                 when (val result = fetchTrendingUseCase.fetchTrending()) {
                     is FetchTrendingUseCase.Result.Success -> bindTrendingData(result.trendingList)
@@ -63,14 +63,14 @@ class HomeFragment : BaseFragment() {
                     is FetchTrendingUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                hideLoading()
+                binding?.trendingProgressBar?.visibility = View.GONE
             }
         }
     }
 
     private fun fetchNowPlayingFromApi() {
         coroutineScope.launch {
-            showLoading()
+            binding?.newMoviesProgressBar?.visibility = View.VISIBLE
             try {
                 when (val result = fetchNowPlayingUseCase.fetchNowPlaying()) {
                     is FetchNowPlayingUseCase.Result.Success -> bindNowPlayingData(result.movies)
@@ -78,14 +78,14 @@ class HomeFragment : BaseFragment() {
                     is FetchNowPlayingUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                hideLoading()
+                binding?.newMoviesProgressBar?.visibility = View.GONE
             }
         }
     }
 
     private fun fetchTvPopularFromApi() {
         coroutineScope.launch {
-            showLoading()
+            binding?.tvSeriesProgressBar?.visibility = View.VISIBLE
             try {
                 when (val result = fetchTvPopularUseCase.fetchTvPopular()) {
                     is FetchTvPopularUseCase.Result.Success -> bindTvPopularData(result.tvShowList)
@@ -93,7 +93,7 @@ class HomeFragment : BaseFragment() {
                     is FetchTvPopularUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                hideLoading()
+                binding?.tvSeriesProgressBar?.visibility = View.GONE
             }
         }
     }
