@@ -47,10 +47,6 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
         return binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     private fun fetchMoviesFromApi() {
         coroutineScope.launch {
             showLoading()
@@ -84,11 +80,11 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
     }
 
     private fun showLoading() {
-        binding?.progressBar!!.visibility = View.VISIBLE
+        binding?.progressBar?.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        binding?.progressBar!!.visibility = View.GONE
+        binding?.progressBar?.visibility = View.GONE
     }
 
     override fun onDestroy() {
