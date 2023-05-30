@@ -2,18 +2,14 @@ package com.example.moviecataloguejetpackpro.data.source.remote.usecase
 
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.ApiService
+import com.example.moviecataloguejetpackpro.data.source.remote.response.Result
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class FetchTvPopularUseCase(private val apiService: ApiService) {
 
-    sealed class Result {
-        data class Success(val tvShowList: List<TVShowEntity>) : Result()
-        object Failure : Result()
-    }
-
-    suspend fun fetchTvPopular(): Result {
+    suspend fun fetchTvPopular(): Result<TVShowEntity> {
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getTVPopular()

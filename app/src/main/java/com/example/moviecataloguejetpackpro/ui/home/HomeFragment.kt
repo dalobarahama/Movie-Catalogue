@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
+import com.example.moviecataloguejetpackpro.data.source.remote.response.Result
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.*
 import com.example.moviecataloguejetpackpro.databinding.FragmentHomeBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
@@ -88,9 +89,9 @@ class HomeFragment : BaseFragment() {
             binding?.tvSeriesProgressBar?.visibility = View.VISIBLE
             try {
                 when (val result = fetchTvPopularUseCase.fetchTvPopular()) {
-                    is FetchTvPopularUseCase.Result.Success -> bindTvPopularData(result.tvShowList)
+                    is Result.Success -> bindTvPopularData(result.responseList)
 
-                    is FetchTvPopularUseCase.Result.Failure -> onFetchFailed()
+                    is Result.Failure -> onFetchFailed()
                 }
             } finally {
                 binding?.tvSeriesProgressBar?.visibility = View.GONE

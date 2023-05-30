@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
+import com.example.moviecataloguejetpackpro.data.source.remote.response.Result
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
@@ -23,8 +24,10 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
 
     @Inject
     lateinit var fetchMovieUseCase: FetchMovieUseCase
+
     @Inject
     lateinit var dao: Dao
+
     @Inject
     lateinit var activity: AppCompatActivity
 
@@ -52,10 +55,10 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
             showLoading()
             try {
                 when (val result = fetchMovieUseCase.fetchUpcomingMovies()) {
-                    is FetchMovieUseCase.Result.Success -> {
-                        showData(result.movies)
+                    is Result.Success -> {
+                        showData(result.responseList)
                     }
-                    is FetchMovieUseCase.Result.Failure -> onFetchFailed()
+                    is Result.Failure -> onFetchFailed()
                 }
             } finally {
                 hideLoading()
