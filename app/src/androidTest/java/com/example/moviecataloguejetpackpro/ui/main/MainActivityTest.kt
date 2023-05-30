@@ -10,8 +10,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.moviecataloguejetpackpro.R
-import com.example.moviecataloguejetpackpro.utils.DataDummy
-import com.example.moviecataloguejetpackpro.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
