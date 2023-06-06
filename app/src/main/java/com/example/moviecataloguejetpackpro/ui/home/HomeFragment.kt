@@ -74,9 +74,9 @@ class HomeFragment : BaseFragment() {
             binding?.newMoviesProgressBar?.visibility = View.VISIBLE
             try {
                 when (val result = fetchNowPlayingUseCase.fetchNowPlaying()) {
-                    is FetchNowPlayingUseCase.Result.Success -> bindNowPlayingData(result.movies)
+                    is Result.Success -> bindNowPlayingData(result.responseList)
 
-                    is FetchNowPlayingUseCase.Result.Failure -> onFetchFailed()
+                    is Result.Failure -> onFetchFailed()
                 }
             } finally {
                 binding?.newMoviesProgressBar?.visibility = View.GONE
@@ -133,15 +133,5 @@ class HomeFragment : BaseFragment() {
             this?.setHasFixedSize(true)
             this?.adapter = tvPopularAdapter
         }
-    }
-
-    private fun showLoading() {
-        binding?.progressBar?.visibility = View.VISIBLE
-        binding?.constraintLayout?.visibility = View.GONE
-    }
-
-    private fun hideLoading() {
-        binding?.progressBar?.visibility = View.GONE
-        binding?.constraintLayout?.visibility = View.VISIBLE
     }
 }
