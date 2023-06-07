@@ -3,16 +3,15 @@ package com.example.moviecataloguejetpackpro.ui.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.R
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntityLocal
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
+import com.example.moviecataloguejetpackpro.ui.common.BaseActivity
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_ENTITY = "extra_entity"
@@ -26,10 +25,10 @@ class DetailActivity : AppCompatActivity() {
 
     private var menu: Menu? = null
 
-    private var entityId: Int = 0
     private lateinit var itemType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
 
         activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
@@ -38,38 +37,22 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        val extras = intent.extras
-        if (extras != null) {
-            entityId = extras.getInt(EXTRA_ENTITY)
-            itemType = extras.getString(EXTRA_TYPE).toString()
-            activityDetailBinding.content.visibility = View.GONE
-            activityDetailBinding.progressBar.visibility = View.VISIBLE
-
+        val trendingEntity = intent?.getParcelableExtra<TrendingEntity>(EXTRA_ENTITY)
+        if (trendingEntity != null){
+            populateTrendingEntity(trendingEntity)
         }
+
     }
 
-    private fun populateMovieEntity(movieEntity: MovieEntityLocal) {
-        activityDetailBinding.titleDetailActivity.text = movieEntity.title
-        activityDetailBinding.overviewDetailActivity.text = movieEntity.overview
+    private fun populateTrendingEntity(trendingEntity: TrendingEntity) {
+        activityDetailBinding.titleDetailActivity.text = trendingEntity.title
+        activityDetailBinding.overviewDetailActivity.text = trendingEntity.overview
         activityDetailBinding.releaseDateDetailActivity.text =
-            movieEntity.releaseDate
-        activityDetailBinding.scoreDetailActivity.text = movieEntity.voteAverage.toString()
+            trendingEntity.releaseDate
+        activityDetailBinding.scoreDetailActivity.text = trendingEntity.voteAverage.toString()
 
         Glide.with(this)
-            .load(IMAGE_BASE_URL + movieEntity.posterPath)
-            .into(activityDetailBinding.posterDetailActivity)
-    }
-
-    private fun populateTvShowEntity(tvShowEntity: TvShowEntityLocal) {
-        activityDetailBinding.titleDetailActivity.text = tvShowEntity.name
-        activityDetailBinding.overviewDetailActivity.text = tvShowEntity.overview
-        activityDetailBinding.releaseDateDetailActivity.text =
-            tvShowEntity.firstAirDate
-        activityDetailBinding.scoreDetailActivity.text = tvShowEntity.voteAverage.toString()
-
-        Glide.with(this)
-            .load(IMAGE_BASE_URL + tvShowEntity.posterPath)
+            .load(IMAGE_BASE_URL + trendingEntity.posterPath)
             .into(activityDetailBinding.posterDetailActivity)
     }
 

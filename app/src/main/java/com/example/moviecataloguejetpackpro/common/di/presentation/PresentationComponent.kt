@@ -1,5 +1,6 @@
 package com.example.moviecataloguejetpackpro.common.di.presentation
 
+import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import com.example.moviecataloguejetpackpro.ui.home.HomeFragment
 import com.example.moviecataloguejetpackpro.ui.main.MainActivity
 import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
@@ -14,4 +15,5 @@ interface PresentationComponent {
     fun inject(fragment: HomeFragment)
 
     fun inject(activity: MainActivity)
+    fun inject(activity: DetailActivity)
 }

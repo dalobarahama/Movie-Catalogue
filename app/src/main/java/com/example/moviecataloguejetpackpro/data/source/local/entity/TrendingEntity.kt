@@ -1,7 +1,10 @@
 package com.example.moviecataloguejetpackpro.data.source.local.entity
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TrendingEntity(
     val adult: Boolean,
 
@@ -51,4 +54,4 @@ data class TrendingEntity(
     val releaseDate: String? = null,
 
     val video: Boolean? = null,
-)
+) : Parcelable
