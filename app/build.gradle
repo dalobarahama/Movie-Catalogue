@@ -72,6 +72,8 @@ ext {
 
     roomVersion = '2.5.0'
     roomRuntimeVersion = '2.4.2'
+
+    shimmerVersion = '0.5.0'
 }
 
 dependencies {
@@ -125,5 +127,8 @@ dependencies {
     //di
     api "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 
 }

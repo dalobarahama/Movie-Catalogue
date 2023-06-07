@@ -56,7 +56,8 @@ class HomeFragment : BaseFragment() {
 
     private fun fetchTrendingFromApi() {
         coroutineScope.launch {
-            binding?.trendingProgressBar?.visibility = View.VISIBLE
+            binding?.shimmerLayoutTrending?.visibility = View.VISIBLE
+            binding?.shimmerLayoutTrending?.startShimmer()
             try {
                 when (val result = fetchTrendingUseCase.fetchTrending()) {
                     is FetchTrendingUseCase.Result.Success -> bindTrendingData(result.trendingList)
@@ -64,14 +65,18 @@ class HomeFragment : BaseFragment() {
                     is FetchTrendingUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.trendingProgressBar?.visibility = View.GONE
+                binding?.shimmerLayoutTrending?.postDelayed({
+                    binding?.shimmerLayoutTrending?.stopShimmer()
+                    binding?.shimmerLayoutTrending?.visibility = View.GONE
+                }, 3000)
             }
         }
     }
 
     private fun fetchNowPlayingFromApi() {
         coroutineScope.launch {
-            binding?.newMoviesProgressBar?.visibility = View.VISIBLE
+            binding?.shimmerLayoutNewMovies?.visibility = View.VISIBLE
+            binding?.shimmerLayoutNewMovies?.startShimmer()
             try {
                 when (val result = fetchNowPlayingUseCase.fetchNowPlaying()) {
                     is Result.Success -> bindNowPlayingData(result.responseList)
@@ -79,14 +84,18 @@ class HomeFragment : BaseFragment() {
                     is Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.newMoviesProgressBar?.visibility = View.GONE
+                binding?.shimmerLayoutNewMovies?.postDelayed({
+                    binding?.shimmerLayoutNewMovies?.visibility = View.GONE
+                    binding?.shimmerLayoutNewMovies?.stopShimmer()
+                }, 3000)
             }
         }
     }
 
     private fun fetchTvPopularFromApi() {
         coroutineScope.launch {
-            binding?.tvSeriesProgressBar?.visibility = View.VISIBLE
+            binding?.shimmerLayoutTvSeries?.visibility = View.VISIBLE
+            binding?.shimmerLayoutTvSeries?.startShimmer()
             try {
                 when (val result = fetchTvPopularUseCase.fetchTvPopular()) {
                     is Result.Success -> bindTvPopularData(result.responseList)
@@ -94,7 +103,10 @@ class HomeFragment : BaseFragment() {
                     is Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.tvSeriesProgressBar?.visibility = View.GONE
+                binding?.shimmerLayoutTvSeries?.postDelayed({
+                    binding?.shimmerLayoutTvSeries?.visibility = View.GONE
+                    binding?.shimmerLayoutTvSeries?.stopShimmer()
+                }, 3000)
             }
         }
     }

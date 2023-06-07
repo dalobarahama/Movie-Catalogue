@@ -46,11 +46,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_trending">
 
-                <ProgressBar
-                    android:id="@+id/trending_progress_bar"
-                    android:layout_width="wrap_content"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout_trending"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_marginTop="8dp"
+                    app:shimmer_base_color="@color/black"
+                    app:shimmer_colored="true"
+                    app:shimmer_highlight_color="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_movie_trending" />
+
+                        <include layout="@layout/item_movie_trending" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_trending"
@@ -84,11 +100,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_new_movies">
 
-                <ProgressBar
-                    android:id="@+id/new_movies_progress_bar"
-                    android:layout_width="wrap_content"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout_new_movies"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_marginTop="8dp"
+                    app:shimmer_base_color="@color/black"
+                    app:shimmer_colored="true"
+                    app:shimmer_highlight_color="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_new_movies" />
+
+                        <include layout="@layout/item_new_movies" />
+
+                        <include layout="@layout/item_new_movies" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_new_movies"
@@ -121,11 +154,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_tvseries">
 
-                <ProgressBar
-                    android:id="@+id/tv_series_progress_bar"
-                    android:layout_width="wrap_content"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout_tv_series"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_marginTop="8dp"
+                    app:shimmer_base_color="@color/black"
+                    app:shimmer_colored="true"
+                    app:shimmer_highlight_color="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_new_movies" />
+
+                        <include layout="@layout/item_new_movies" />
+
+                        <include layout="@layout/item_new_movies" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_tvseries"
