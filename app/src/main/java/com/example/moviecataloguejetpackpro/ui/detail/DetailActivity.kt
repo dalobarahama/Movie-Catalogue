@@ -47,13 +47,10 @@ class DetailActivity : BaseActivity() {
     private fun populateTrendingEntity(trendingEntity: TrendingEntity) {
         activityDetailBinding.titleDetailActivity.text = trendingEntity.title
         activityDetailBinding.overviewDetailActivity.text = trendingEntity.overview
-        activityDetailBinding.releaseDateDetailActivity.text =
-            trendingEntity.releaseDate
+        activityDetailBinding.releaseDateDetailActivity.text = trendingEntity.releaseDate
         activityDetailBinding.scoreDetailActivity.text = trendingEntity.voteAverage.toString()
 
-        Glide.with(this)
-            .load(IMAGE_BASE_URL + trendingEntity.posterPath)
-            .into(activityDetailBinding.posterDetailActivity)
+        loadImage(IMAGE_BASE_URL + trendingEntity.posterPath, activityDetailBinding.posterDetailActivity)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
