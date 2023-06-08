@@ -3,9 +3,10 @@ package com.example.moviecataloguejetpackpro.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemNewMoviesBinding
+import com.example.moviecataloguejetpackpro.utils.Utils
 
 class TvPopularAdapter : RecyclerView.Adapter<TvPopularAdapter.HomeViewHolder>() {
     class HomeViewHolder(private val binding: ItemNewMoviesBinding) :
@@ -14,9 +15,12 @@ class TvPopularAdapter : RecyclerView.Adapter<TvPopularAdapter.HomeViewHolder>()
         fun bind(tvShowEntity: TVShowEntity) {
             binding.tvItemNewMoviesTitle.text = tvShowEntity.name
 
-            Glide.with(itemView.context)
-                .load(IMAGE_BASE_URL + tvShowEntity.posterPath)
-                .into(binding.ivItemNewMovies)
+            Utils.loadImageWithPlaceholder(
+                itemView.context,
+                IMAGE_BASE_URL + tvShowEntity.posterPath,
+                binding.ivItemNewMovies,
+                R.drawable.placeholder_image
+            )
         }
     }
 
