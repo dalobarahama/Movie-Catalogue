@@ -65,10 +65,8 @@ class HomeFragment : BaseFragment() {
                     is FetchTrendingUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.shimmerLayoutTrending?.postDelayed({
-                    binding?.shimmerLayoutTrending?.stopShimmer()
-                    binding?.shimmerLayoutTrending?.visibility = View.GONE
-                }, 3000)
+                binding?.shimmerLayoutTrending?.stopShimmer()
+                binding?.shimmerLayoutTrending?.visibility = View.GONE
             }
         }
     }
@@ -84,10 +82,8 @@ class HomeFragment : BaseFragment() {
                     is Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.shimmerLayoutNewMovies?.postDelayed({
-                    binding?.shimmerLayoutNewMovies?.visibility = View.GONE
-                    binding?.shimmerLayoutNewMovies?.stopShimmer()
-                }, 3000)
+                binding?.shimmerLayoutNewMovies?.visibility = View.GONE
+                binding?.shimmerLayoutNewMovies?.stopShimmer()
             }
         }
     }
@@ -103,10 +99,8 @@ class HomeFragment : BaseFragment() {
                     is Result.Failure -> onFetchFailed()
                 }
             } finally {
-                binding?.shimmerLayoutTvSeries?.postDelayed({
-                    binding?.shimmerLayoutTvSeries?.visibility = View.GONE
-                    binding?.shimmerLayoutTvSeries?.stopShimmer()
-                }, 3000)
+                binding?.shimmerLayoutTvSeries?.visibility = View.GONE
+                binding?.shimmerLayoutTvSeries?.stopShimmer()
             }
         }
     }
