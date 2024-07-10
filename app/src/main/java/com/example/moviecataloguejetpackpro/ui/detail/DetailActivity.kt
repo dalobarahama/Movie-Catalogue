@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.R
-import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
-import com.example.moviecataloguejetpackpro.data.source.local.entity.TvShowEntityLocal
+import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.databinding.ActivityDetailBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseActivity
 
@@ -15,9 +13,6 @@ class DetailActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_ENTITY = "extra_entity"
-        const val EXTRA_TYPE = "extra_type"
-        const val EXTRA_MOVIE_TYPE = "movie"
-        const val EXTRA_TV_SHOW_TYPE = "tv_show"
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
@@ -37,20 +32,24 @@ class DetailActivity : BaseActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val trendingEntity = intent?.getParcelableExtra<TrendingEntity>(EXTRA_ENTITY)
-        if (trendingEntity != null){
-            populateTrendingEntity(trendingEntity)
+
+        val detailEntity = intent?.getParcelableExtra<DetailEntity>(EXTRA_ENTITY)
+        if (detailEntity != null) {
+            populateTrendingEntity(detailEntity)
         }
 
     }
 
-    private fun populateTrendingEntity(trendingEntity: TrendingEntity) {
-        activityDetailBinding.titleDetailActivity.text = trendingEntity.title
-        activityDetailBinding.overviewDetailActivity.text = trendingEntity.overview
-        activityDetailBinding.releaseDateDetailActivity.text = trendingEntity.releaseDate
-        activityDetailBinding.scoreDetailActivity.text = trendingEntity.voteAverage.toString()
+    private fun populateTrendingEntity(detailEntity: DetailEntity) {
+        activityDetailBinding.titleDetailActivity.text = detailEntity.title
+        activityDetailBinding.overviewDetailActivity.text = detailEntity.overview
+        activityDetailBinding.releaseDateDetailActivity.text = detailEntity.releaseDate
+        activityDetailBinding.scoreDetailActivity.text = detailEntity.voteAverage
 
-        loadImage(IMAGE_BASE_URL + trendingEntity.posterPath, activityDetailBinding.posterDetailActivity)
+        loadImage(
+            IMAGE_BASE_URL + detailEntity.posterPath,
+            activityDetailBinding.posterDetailActivity
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,16 +59,16 @@ class DetailActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_bookmark) {
-            return if (itemType == EXTRA_MOVIE_TYPE) {
-                true
-            } else {
-                true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.action_bookmark) {
+//            return if (itemType == EXTRA_MOVIE_TYPE) {
+//                true
+//            } else {
+//                true
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private fun setBookmarkState(state: Boolean) {
         if (menu == null) return

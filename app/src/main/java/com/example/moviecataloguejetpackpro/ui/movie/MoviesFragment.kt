@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
 import com.example.moviecataloguejetpackpro.data.source.remote.response.Result
@@ -58,6 +59,7 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
                     is Result.Success -> {
                         showData(result.responseList)
                     }
+
                     is Result.Failure -> onFetchFailed()
                 }
             } finally {
@@ -95,10 +97,16 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
         _fragmentMoviesBinding = null
     }
 
-    override fun onItemClick(id: Int) {
+    override fun onItemClick(movieEntity: MovieEntity) {
+        val detailEntity = DetailEntity(
+            movieEntity.title,
+            movieEntity.overview,
+            movieEntity.releaseDate,
+            movieEntity.voteAverage.toString(),
+            movieEntity.posterPath
+        )
         val intent = Intent(activity, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_MOVIE_TYPE)
-        intent.putExtra(DetailActivity.EXTRA_ENTITY, id)
+        intent.putExtra(DetailActivity.EXTRA_ENTITY, detailEntity)
         startActivity(intent)
     }
 }

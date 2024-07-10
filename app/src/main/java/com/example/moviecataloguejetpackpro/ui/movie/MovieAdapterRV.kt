@@ -44,8 +44,8 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
         val movieEntity = movieList[position]
 
         holder.bind(movieEntity)
-        holder.titleText.setOnClickListener {
-            onClick.onItemClick(movieEntity.id)
+        holder.itemView.setOnClickListener {
+            onClick.onItemClick(movieEntity)
         }
     }
 
@@ -58,6 +58,6 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
     }
 
     interface OnClick {
-        fun onItemClick(id: Int)
+        fun onItemClick(movieEntity: MovieEntity)
     }
 }

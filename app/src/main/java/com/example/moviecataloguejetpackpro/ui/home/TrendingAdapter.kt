@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecataloguejetpackpro.R
+import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TrendingEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemMovieTrendingBinding
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
@@ -23,8 +24,22 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.HomeViewHolder>() {
             )
 
             binding.root.setOnClickListener {
+                val title = if (trendingEntity.mediaType == TV_MEDIA_TYPE) {
+                    trendingEntity.originalName
+                } else {
+                    trendingEntity.originalTitle
+                }
+
+                val detailEntity = DetailEntity(
+                    title ?: "",
+                    trendingEntity.overview,
+                    trendingEntity.releaseDate ?: "",
+                    trendingEntity.voteAverage.toString(),
+                    trendingEntity.posterPath
+                )
+
                 val intent = Intent(binding.root.context, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_ENTITY, trendingEntity)
+                intent.putExtra(DetailActivity.EXTRA_ENTITY, detailEntity)
                 binding.root.context.startActivity(intent)
             }
         }
@@ -54,5 +69,6 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.HomeViewHolder>() {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+        private const val TV_MEDIA_TYPE = "tv"
     }
 }

@@ -56,7 +56,6 @@ class TVShowAdapter :
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_ENTITY, tvShow.id)
-                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_TV_SHOW_TYPE)
                     itemView.context.startActivity(intent)
                 }
             }

@@ -61,7 +61,6 @@ class MovieAdapter :
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_ENTITY, movie.id)
-                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.EXTRA_MOVIE_TYPE)
                     itemView.context.startActivity(intent)
                 }
             }
