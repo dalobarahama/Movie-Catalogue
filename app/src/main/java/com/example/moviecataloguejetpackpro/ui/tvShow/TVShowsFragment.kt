@@ -1,19 +1,22 @@
 package com.example.moviecataloguejetpackpro.ui.tvShow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
 import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
+import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TVShowsFragment : BaseFragment() {
+class TVShowsFragment : BaseFragment(), TVShowAdapterRV.OnClick {
     private var _fragmentTvShowsBinding: FragmentTvShowsBinding? = null
     private val binding get() = _fragmentTvShowsBinding
 
@@ -47,6 +50,7 @@ class TVShowsFragment : BaseFragment() {
                     is FetchTvShowUseCase.Result.Success -> {
                         showData(result.tvShows)
                     }
+
                     is FetchTvShowUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
@@ -62,6 +66,7 @@ class TVShowsFragment : BaseFragment() {
     private fun showData(tvShowList: List<TVShowEntity>) {
         val tvShowAdapterRV = TVShowAdapterRV()
         tvShowAdapterRV.submitList(tvShowList)
+        tvShowAdapterRV.setOnClick(this)
 
         with(binding?.tvshowsRecyclerview) {
             this?.layoutManager = LinearLayoutManager(context)
@@ -81,5 +86,19 @@ class TVShowsFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _fragmentTvShowsBinding = null
+    }
+
+    override fun onItemOnClick(tvShowEntity: TVShowEntity) {
+        val entity = DetailEntity(
+            tvShowEntity.originalName,
+            tvShowEntity.overview,
+            tvShowEntity.firstAirDate,
+            tvShowEntity.voteAverage.toString(),
+            tvShowEntity.posterPath
+        )
+
+        startActivity(Intent(activity, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.EXTRA_ENTITY, entity)
+        })
     }
 }

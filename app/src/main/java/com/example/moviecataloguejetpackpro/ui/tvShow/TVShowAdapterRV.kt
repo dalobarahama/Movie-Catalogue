@@ -20,10 +20,16 @@ class TVShowAdapterRV : RecyclerView.Adapter<TVShowAdapterRV.ListViewHolder>() {
         }
     }
 
+    private lateinit var onClick: OnClick
+
     private var tvShowList: List<TVShowEntity> = emptyList()
 
     fun submitList(tvShowList: List<TVShowEntity>) {
         this.tvShowList = tvShowList
+    }
+
+    fun setOnClick(onClick: OnClick) {
+        this.onClick = onClick
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -36,6 +42,9 @@ class TVShowAdapterRV : RecyclerView.Adapter<TVShowAdapterRV.ListViewHolder>() {
         val tvShowEntity = tvShowList[position]
 
         holder.bind(tvShowEntity)
+        holder.itemView.setOnClickListener {
+            onClick.onItemOnClick(tvShowEntity)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -44,5 +53,9 @@ class TVShowAdapterRV : RecyclerView.Adapter<TVShowAdapterRV.ListViewHolder>() {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+    }
+
+    interface OnClick {
+        fun onItemOnClick(tvShowEntity: TVShowEntity)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.moviecataloguejetpackpro.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,14 +37,14 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        fetchTrendingFromApi()
-        fetchNowPlayingFromApi()
-        fetchTvPopularFromApi()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
+        fetchTrendingFromApi()
+        fetchNowPlayingFromApi()
+        fetchTvPopularFromApi()
     }
 
     override fun onCreateView(

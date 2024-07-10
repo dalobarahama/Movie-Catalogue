@@ -2,7 +2,6 @@ package com.example.moviecataloguejetpackpro.ui.detail
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
@@ -30,8 +29,11 @@ class DetailActivity : BaseActivity() {
 
         setContentView(activityDetailBinding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        val toolbar = activityDetailBinding.toolbar
+        setSupportActionBar(toolbar.root)
+        toolbar.btnUp.setOnClickListener {
+            onBackPressed()
+        }
 
         val detailEntity = intent?.getParcelableExtra<DetailEntity>(EXTRA_ENTITY)
         if (detailEntity != null) {
@@ -51,24 +53,6 @@ class DetailActivity : BaseActivity() {
             activityDetailBinding.posterDetailActivity
         )
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_detail, menu)
-        this.menu = menu
-
-        return true
-    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.action_bookmark) {
-//            return if (itemType == EXTRA_MOVIE_TYPE) {
-//                true
-//            } else {
-//                true
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
     private fun setBookmarkState(state: Boolean) {
         if (menu == null) return
