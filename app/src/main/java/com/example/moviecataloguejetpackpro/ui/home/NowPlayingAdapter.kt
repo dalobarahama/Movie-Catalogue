@@ -1,11 +1,14 @@
 package com.example.moviecataloguejetpackpro.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecataloguejetpackpro.R
+import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.databinding.ItemNewMoviesBinding
+import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import com.example.moviecataloguejetpackpro.utils.Utils
 
 class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.HomeViewHolder>() {
@@ -21,6 +24,21 @@ class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.HomeViewHolder>
                 binding.ivItemNewMovies,
                 R.drawable.placeholder_image
             )
+
+            binding.root.setOnClickListener {
+
+                val detailEntity = DetailEntity(
+                    movieEntity.originalTitle,
+                    movieEntity.overview,
+                    movieEntity.releaseDate,
+                    movieEntity.voteAverage.toString(),
+                    movieEntity.posterPath
+                )
+
+                val intent = Intent(binding.root.context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_ENTITY, detailEntity)
+                binding.root.context.startActivity(intent)
+            }
         }
     }
 
