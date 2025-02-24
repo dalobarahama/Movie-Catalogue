@@ -5,24 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.room.Dao
 import com.example.moviecataloguejetpackpro.data.source.remote.response.Result
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchMovieUseCase
-import com.example.moviecataloguejetpackpro.databinding.FragmentMoviesBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
-    private var _fragmentMoviesBinding: FragmentMoviesBinding? = null
-    private val binding get() = _fragmentMoviesBinding
-
+class MovieFragment : BaseFragment(), MovieMvc.Listener {
     @Inject
     lateinit var fetchMovieUseCase: FetchMovieUseCase
 
@@ -32,72 +26,51 @@ class MovieFragment : BaseFragment(), MovieAdapterRV.OnClick {
     @Inject
     lateinit var activity: AppCompatActivity
 
-    override fun onStart() {
-        super.onStart()
-        fetchMoviesFromApi()
-    }
+    private lateinit var viewMvc: MovieMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
+        viewMvc = MovieObservableMvcImpl(layoutInflater, null)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        _fragmentMoviesBinding = FragmentMoviesBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        return viewMvc.getRootView()
     }
 
     private fun fetchMoviesFromApi() {
         coroutineScope.launch {
-            showLoading()
+            viewMvc.showLoading()
             try {
                 when (val result = fetchMovieUseCase.fetchUpcomingMovies()) {
                     is Result.Success -> {
-                        showData(result.responseList)
+                        viewMvc.showData(result.responseList)
                     }
 
-                    is Result.Failure -> onFetchFailed()
+                    is Result.Failure -> viewMvc.onFetchFailed()
                 }
             } finally {
-                hideLoading()
+                viewMvc.hideLoading()
             }
         }
     }
 
-    private fun onFetchFailed() {
-        Toast.makeText(requireContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showData(movieList: List<MovieEntity>) {
-        val movieAdapter = MovieAdapterRV()
-        movieAdapter.submitList(movieList)
-        movieAdapter.setOnClick(this)
-
-        with(binding?.moviesRecyclerview) {
-            this?.layoutManager = LinearLayoutManager(context)
-            this?.setHasFixedSize(true)
-            this?.adapter = movieAdapter
-        }
-    }
-
-    private fun showLoading() {
-        binding?.progressBar?.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding?.progressBar?.visibility = View.GONE
+    override fun onStart() {
+        super.onStart()
+        viewMvc.registerListener(this)
+        fetchMoviesFromApi()
     }
 
     override fun onDestroy() {
+        viewMvc.unregisterListener(this)
         super.onDestroy()
-        _fragmentMoviesBinding = null
     }
 
-    override fun onItemClick(movieEntity: MovieEntity) {
+    fun onItemClick(movieEntity: MovieEntity) {
         val detailEntity = DetailEntity(
             movieEntity.title,
             movieEntity.overview,
