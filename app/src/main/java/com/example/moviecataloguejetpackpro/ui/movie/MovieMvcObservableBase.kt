@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
-import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseObservableMvcImpl
+import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseViewMvcObservable
 
-class MovieObservableMvcImpl(layoutInflater: LayoutInflater, parent: ViewGroup?) : BaseObservableMvcImpl<MovieMvc.Listener>(), MovieMvc {
+class MovieMvcObservableBase(layoutInflater: LayoutInflater, parent: ViewGroup?) : BaseViewMvcObservable<MovieMvcObservable.Listener>(), MovieMvcObservable {
 
     private val rootView = layoutInflater.inflate(R.layout.fragment_movies, parent, false)
 

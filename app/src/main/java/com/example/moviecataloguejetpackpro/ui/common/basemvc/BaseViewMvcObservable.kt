@@ -1,8 +1,6 @@
 package com.example.moviecataloguejetpackpro.ui.common.basemvc
 
-import android.view.View
-
-abstract class BaseObservableMvcImpl<Listener> : BaseObservableMvc<Listener> {
+abstract class BaseViewMvcObservable<Listener> : ViewMvcObservable<Listener>, BaseViewMvc() {
 
     private val listeners = HashSet<Listener>()
 
@@ -20,9 +18,5 @@ abstract class BaseObservableMvcImpl<Listener> : BaseObservableMvc<Listener> {
             listener = listener1
         }
         return listener
-    }
-
-    fun <T : View> findViewById(id: Int): T {
-        return getRootView().findViewById(id)
     }
 }
