@@ -1,12 +1,11 @@
 package com.example.moviecataloguejetpackpro.ui.itemMovieTvShow
 
-import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.ui.common.basemvc.ViewMvcObservable
 
-interface ItemMovieTvShowMvc: ViewMvcObservable<ItemMovieTvShowMvc.Listener> {
-    interface Listener {
-        fun onItemClicked(movieEntity: MovieEntity)
+interface ItemMovieTvShowMvc<T : Any> : ViewMvcObservable<ItemMovieTvShowMvc.Listener<T>> {
+    interface Listener<T : Any> {
+        fun onItemClicked(entity: T)
     }
 
-    fun bindData(movieEntity: MovieEntity)
+    fun bindData(entity: T)
 }

@@ -7,10 +7,11 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
+import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseViewMvcObservable
 
-class ItemMovieTvShowMvcImpl(layoutInflater: LayoutInflater, parent: ViewGroup?) :
-    BaseViewMvcObservable<ItemMovieTvShowMvc.Listener>(), ItemMovieTvShowMvc {
+class ItemMovieTvShowMvcImpl<T : Any>(layoutInflater: LayoutInflater, parent: ViewGroup?) :
+    BaseViewMvcObservable<ItemMovieTvShowMvc.Listener<T>>(), ItemMovieTvShowMvc<T> {
 
     companion object {
         private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
@@ -20,7 +21,7 @@ class ItemMovieTvShowMvcImpl(layoutInflater: LayoutInflater, parent: ViewGroup?)
     private var tvOverview: TextView
     private var ivPoster: ImageView
 
-    private lateinit var movieEntity: MovieEntity
+    private lateinit var entity: T
 
     init {
         setRootView(R.layout.item_movie_tvshow, layoutInflater, parent)
@@ -29,18 +30,34 @@ class ItemMovieTvShowMvcImpl(layoutInflater: LayoutInflater, parent: ViewGroup?)
         ivPoster = findViewById(R.id.poster_item_movie_tvshow)
 
         getRootView().rootView.setOnClickListener {
-            getListener()?.onItemClicked(movieEntity)
+            getListener()?.onItemClicked(entity)
         }
     }
 
-    override fun bindData(movieEntity: MovieEntity) {
-        this.movieEntity = movieEntity
+    override fun bindData(entity: T) {
+        when (entity) {
+            is TVShowEntity -> {
+                this.entity = entity
 
-        tvTitle.text = movieEntity.title
-        tvOverview.text = movieEntity.overview
-        Glide.with(getContext())
-            .load(IMAGE_BASE_URL + movieEntity.posterPath)
-            .into(ivPoster)
+                val tvShowEntity = entity as TVShowEntity
+                tvTitle.text = tvShowEntity.name
+                tvOverview.text = tvShowEntity.overview
+                Glide.with(getContext())
+                    .load(IMAGE_BASE_URL + tvShowEntity.posterPath)
+                    .into(ivPoster)
+            }
+
+            is MovieEntity -> {
+                this.entity = entity
+
+                val movieEntity = entity as MovieEntity
+                tvTitle.text = movieEntity.title
+                tvOverview.text = movieEntity.overview
+                Glide.with(getContext())
+                    .load(IMAGE_BASE_URL + movieEntity.posterPath)
+                    .into(ivPoster)
+            }
+        }
     }
 
 }

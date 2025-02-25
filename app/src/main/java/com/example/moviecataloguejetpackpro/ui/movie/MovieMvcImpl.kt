@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseViewMvcObservable
+import com.example.moviecataloguejetpackpro.ui.itemMovieTvShow.ItemMovieTvShowAdapter
 
-class MovieMvcObservableBase(private val layoutInflater: LayoutInflater, parent: ViewGroup?) :
-    BaseViewMvcObservable<MovieMvcObservable.Listener>(),
-    MovieMvcObservable,
-    MovieAdapterRV.Listener {
+class MovieMvcImpl(private val layoutInflater: LayoutInflater, parent: ViewGroup?) :
+    BaseViewMvcObservable<MovieMvc.Listener>(),
+    MovieMvc,
+    ItemMovieTvShowAdapter.Listener<MovieEntity> {
 
     private var rvMovies: RecyclerView
     private var progressBar: ProgressBar
@@ -27,7 +28,7 @@ class MovieMvcObservableBase(private val layoutInflater: LayoutInflater, parent:
     }
 
     override fun showData(movieList: List<MovieEntity>) {
-        val movieAdapter = MovieAdapterRV(layoutInflater, this)
+        val movieAdapter = ItemMovieTvShowAdapter(layoutInflater, this)
         movieAdapter.submitList(movieList)
 
         with(rvMovies) {
@@ -49,7 +50,7 @@ class MovieMvcObservableBase(private val layoutInflater: LayoutInflater, parent:
         Toast.makeText(getContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onItemOnClicked(movieEntity: MovieEntity) {
-        getListener()?.onItemOnClicked(movieEntity)
+    override fun onItemOnClicked(entity: MovieEntity) {
+        getListener()?.onItemOnClicked(entity)
     }
 }

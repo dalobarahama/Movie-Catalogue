@@ -16,7 +16,7 @@ import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieFragment : BaseFragment(), MovieMvcObservable.Listener {
+class MoviesFragment : BaseFragment(), MovieMvc.Listener {
     @Inject
     lateinit var fetchMovieUseCase: FetchMovieUseCase
 
@@ -26,12 +26,13 @@ class MovieFragment : BaseFragment(), MovieMvcObservable.Listener {
     @Inject
     lateinit var activity: AppCompatActivity
 
-    private lateinit var viewMvc: MovieMvcObservable
+    private lateinit var viewMvc: MovieMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
-        viewMvc = MovieMvcObservableBase(layoutInflater, null)
+        viewMvc = MovieMvcImpl(layoutInflater, null)
+        fetchMoviesFromApi()
     }
 
     override fun onCreateView(
@@ -62,7 +63,6 @@ class MovieFragment : BaseFragment(), MovieMvcObservable.Listener {
     override fun onStart() {
         super.onStart()
         viewMvc.registerListener(this)
-        fetchMoviesFromApi()
     }
 
     override fun onDestroy() {

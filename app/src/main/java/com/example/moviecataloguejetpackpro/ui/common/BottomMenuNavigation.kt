@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.ui.home.HomeFragment
-import com.example.moviecataloguejetpackpro.ui.movie.MovieFragment
+import com.example.moviecataloguejetpackpro.ui.movie.MoviesFragment
 import com.example.moviecataloguejetpackpro.ui.tvShow.TVShowsFragment
 import com.google.android.material.navigation.NavigationBarView
 
@@ -22,7 +22,7 @@ class BottomMenuNavigation(private val activity: AppCompatActivity) {
                     selectedFragment = HomeFragment()
                 }
                 R.id.movie -> {
-                    selectedFragment = MovieFragment()
+                    selectedFragment = MoviesFragment()
                 }
                 R.id.tv_show -> {
                     selectedFragment = TVShowsFragment()
