@@ -7,6 +7,6 @@ import android.view.ViewGroup
 
 interface ViewMvc {
     fun getRootView(): View
-    fun setRootView(layoutId: Int, layoutInflater: LayoutInflater, parent: ViewGroup)
+    fun setRootView(layoutId: Int, layoutInflater: LayoutInflater, parent: ViewGroup?)
     fun getContext(): Context
 }

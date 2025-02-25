@@ -13,7 +13,7 @@ abstract class BaseViewMvc : ViewMvc {
         return rootView
     }
 
-    override fun setRootView(layoutId: Int, layoutInflater: LayoutInflater, parent: ViewGroup) {
+    override fun setRootView(layoutId: Int, layoutInflater: LayoutInflater, parent: ViewGroup?) {
         rootView = layoutInflater.inflate(layoutId, parent, false)
     }
 
