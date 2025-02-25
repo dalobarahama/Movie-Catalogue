@@ -3,26 +3,23 @@ package com.example.moviecataloguejetpackpro.ui.movie
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
-import com.example.moviecataloguejetpackpro.databinding.ItemMovieTvshowBinding
+import com.example.moviecataloguejetpackpro.ui.itemMovieTvShow.ItemMovieTvShowMvc
+import com.example.moviecataloguejetpackpro.ui.itemMovieTvShow.ItemMovieTvShowMvcImpl
 
-class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
+class MovieAdapterRV(private val layoutInflater: LayoutInflater, private val listener: Listener) :
+    RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>(), ItemMovieTvShowMvc.Listener {
 
-    class ListViewHolder(private val binding: ItemMovieTvshowBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val titleText = binding.titleItemMovieTvshow
-
-        fun bind(movieEntity: MovieEntity) {
-            binding.titleItemMovieTvshow.text = movieEntity.title
-            binding.overviewItemMovieTvshow.text = movieEntity.overview
-            Glide.with(itemView.context)
-                .load(IMAGE_BASE_URL + movieEntity.posterPath)
-                .into(binding.posterItemMovieTvshow)
-        }
+    interface Listener {
+        fun onItemOnClicked(movieEntity: MovieEntity)
     }
 
-    private lateinit var onClick: OnClick
+    class ListViewHolder(private val viewMvc: ItemMovieTvShowMvc) :
+        RecyclerView.ViewHolder(viewMvc.getRootView()) {
+        fun bind(movieEntity: MovieEntity) {
+            viewMvc.bindData(movieEntity)
+        }
+    }
 
     private var movieList: List<MovieEntity> = emptyList()
 
@@ -30,34 +27,22 @@ class MovieAdapterRV : RecyclerView.Adapter<MovieAdapterRV.ListViewHolder>() {
         this.movieList = movieList
     }
 
-    fun setOnClick(onClick: OnClick){
-        this.onClick = onClick
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val itemMovieTvShowBinding =
-            ItemMovieTvshowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(itemMovieTvShowBinding)
+        val viewMvc = ItemMovieTvShowMvcImpl(layoutInflater, parent)
+        viewMvc.registerListener(this)
+        return ListViewHolder(viewMvc)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val movieEntity = movieList[position]
-
         holder.bind(movieEntity)
-        holder.itemView.setOnClickListener {
-            onClick.onItemClick(movieEntity)
-        }
     }
 
     override fun getItemCount(): Int {
         return movieList.size
     }
 
-    companion object {
-        private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
-    }
-
-    interface OnClick {
-        fun onItemClick(movieEntity: MovieEntity)
+    override fun onItemClicked(movieEntity: MovieEntity) {
+        listener.onItemOnClicked(movieEntity)
     }
 }

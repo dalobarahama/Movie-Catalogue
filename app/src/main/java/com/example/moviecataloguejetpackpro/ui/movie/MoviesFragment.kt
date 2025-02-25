@@ -70,7 +70,7 @@ class MovieFragment : BaseFragment(), MovieMvcObservable.Listener {
         super.onDestroy()
     }
 
-    fun onItemClick(movieEntity: MovieEntity) {
+    override fun onItemOnClicked(movieEntity: MovieEntity) {
         val detailEntity = DetailEntity(
             movieEntity.title,
             movieEntity.overview,

@@ -1,6 +1,5 @@
 package com.example.moviecataloguejetpackpro.ui.movie
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +11,23 @@ import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseViewMvcObservable
 
-class MovieMvcObservableBase(layoutInflater: LayoutInflater, parent: ViewGroup?) : BaseViewMvcObservable<MovieMvcObservable.Listener>(), MovieMvcObservable {
-
-    private val rootView = layoutInflater.inflate(R.layout.fragment_movies, parent, false)
+class MovieMvcObservableBase(private val layoutInflater: LayoutInflater, parent: ViewGroup?) :
+    BaseViewMvcObservable<MovieMvcObservable.Listener>(),
+    MovieMvcObservable,
+    MovieAdapterRV.Listener {
 
     private var rvMovies: RecyclerView
     private var progressBar: ProgressBar
 
     init {
+        setRootView(R.layout.fragment_movies, layoutInflater, parent)
+
         rvMovies = findViewById(R.id.movies_recyclerview)
         progressBar = findViewById(R.id.progress_bar)
     }
 
     override fun showData(movieList: List<MovieEntity>) {
-        val movieAdapter = MovieAdapterRV()
+        val movieAdapter = MovieAdapterRV(layoutInflater, this)
         movieAdapter.submitList(movieList)
 
         with(rvMovies) {
@@ -47,11 +49,7 @@ class MovieMvcObservableBase(layoutInflater: LayoutInflater, parent: ViewGroup?)
         Toast.makeText(getContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
     }
 
-    override fun getRootView(): View {
-        return rootView
-    }
-
-    override fun getContext(): Context {
-        return getRootView().context
+    override fun onItemOnClicked(movieEntity: MovieEntity) {
+        getListener()?.onItemOnClicked(movieEntity)
     }
 }
