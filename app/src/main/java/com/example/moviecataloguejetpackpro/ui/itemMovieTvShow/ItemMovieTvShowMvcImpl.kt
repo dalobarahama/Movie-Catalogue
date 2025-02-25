@@ -9,6 +9,7 @@ import com.example.moviecataloguejetpackpro.R
 import com.example.moviecataloguejetpackpro.data.source.local.entity.MovieEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.ui.common.basemvc.BaseViewMvcObservable
+import com.example.moviecataloguejetpackpro.utils.Utils
 
 class ItemMovieTvShowMvcImpl<T : Any>(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     BaseViewMvcObservable<ItemMovieTvShowMvc.Listener<T>>(), ItemMovieTvShowMvc<T> {
@@ -42,9 +43,12 @@ class ItemMovieTvShowMvcImpl<T : Any>(layoutInflater: LayoutInflater, parent: Vi
                 val tvShowEntity = entity as TVShowEntity
                 tvTitle.text = tvShowEntity.name
                 tvOverview.text = tvShowEntity.overview
-                Glide.with(getContext())
-                    .load(IMAGE_BASE_URL + tvShowEntity.posterPath)
-                    .into(ivPoster)
+                Utils.loadImageWithPlaceholder(
+                    getContext(),
+                    IMAGE_BASE_URL + tvShowEntity.posterPath,
+                    ivPoster,
+                    R.drawable.placeholder_image
+                )
             }
 
             is MovieEntity -> {
@@ -53,9 +57,12 @@ class ItemMovieTvShowMvcImpl<T : Any>(layoutInflater: LayoutInflater, parent: Vi
                 val movieEntity = entity as MovieEntity
                 tvTitle.text = movieEntity.title
                 tvOverview.text = movieEntity.overview
-                Glide.with(getContext())
-                    .load(IMAGE_BASE_URL + movieEntity.posterPath)
-                    .into(ivPoster)
+                Utils.loadImageWithPlaceholder(
+                    getContext(),
+                    IMAGE_BASE_URL + movieEntity.posterPath,
+                    ivPoster,
+                    R.drawable.placeholder_image
+                )
             }
         }
     }
