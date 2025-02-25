@@ -5,90 +5,63 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecataloguejetpackpro.data.source.local.entity.DetailEntity
 import com.example.moviecataloguejetpackpro.data.source.local.entity.TVShowEntity
 import com.example.moviecataloguejetpackpro.data.source.remote.usecase.FetchTvShowUseCase
-import com.example.moviecataloguejetpackpro.databinding.FragmentTvShowsBinding
 import com.example.moviecataloguejetpackpro.ui.common.BaseFragment
 import com.example.moviecataloguejetpackpro.ui.detail.DetailActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TVShowsFragment : BaseFragment(), TVShowAdapterRV.OnClick {
-    private var _fragmentTvShowsBinding: FragmentTvShowsBinding? = null
-    private val binding get() = _fragmentTvShowsBinding
-
+class TVShowsFragment : BaseFragment(), TVShowsMvc.Listener {
     @Inject
     lateinit var fetchTvShowUseCase: FetchTvShowUseCase
 
-    override fun onStart() {
-        super.onStart()
-        fetchTvShowsFromApi()
-    }
+    private lateinit var viewMvc: TVShowsMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
+        viewMvc = TVShowsMvcImpl(layoutInflater, null)
+        fetchTvShowsFromApi()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        _fragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        return viewMvc.getRootView()
     }
 
     private fun fetchTvShowsFromApi() {
         coroutineScope.launch {
-            showLoading()
+            viewMvc.showLoading()
             try {
                 when (val result = fetchTvShowUseCase.fetchTvOnTheAir()) {
                     is FetchTvShowUseCase.Result.Success -> {
-                        showData(result.tvShows)
+                        viewMvc.showData(result.tvShows)
                     }
 
-                    is FetchTvShowUseCase.Result.Failure -> onFetchFailed()
+                    is FetchTvShowUseCase.Result.Failure -> viewMvc.onFetchFailed()
                 }
             } finally {
-                hideLoading()
+                viewMvc.hideLoading()
             }
         }
     }
 
-    private fun onFetchFailed() {
-        Toast.makeText(requireContext(), "Fetch Failed", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showData(tvShowList: List<TVShowEntity>) {
-        val tvShowAdapterRV = TVShowAdapterRV()
-        tvShowAdapterRV.submitList(tvShowList)
-        tvShowAdapterRV.setOnClick(this)
-
-        with(binding?.tvshowsRecyclerview) {
-            this?.layoutManager = LinearLayoutManager(context)
-            this?.setHasFixedSize(true)
-            this?.adapter = tvShowAdapterRV
-        }
-    }
-
-    private fun showLoading() {
-        binding?.progressBar?.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding?.progressBar?.visibility = View.GONE
+    override fun onStart() {
+        super.onStart()
+        viewMvc.registerListener(this)
     }
 
     override fun onDestroy() {
+        viewMvc.unregisterListener(this)
         super.onDestroy()
-        _fragmentTvShowsBinding = null
     }
 
-    override fun onItemOnClick(tvShowEntity: TVShowEntity) {
+    override fun onItemOnClicked(tvShowEntity: TVShowEntity) {
         val entity = DetailEntity(
             tvShowEntity.originalName,
             tvShowEntity.overview,
