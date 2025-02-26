@@ -1,16 +1,18 @@
 package com.example.moviecataloguejetpackpro.data.source.local.entity
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie_entities")
 data class MovieEntityLocal(
     @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "id")
-    val id: Int,
+    @ColumnInfo(name = "id_local")
+    val idLocal: Int,
+
+    @ColumnInfo(name = "id_remote")
+    val idRemote: Int,
 
     @ColumnInfo(name = "overview")
     val overview: String,
