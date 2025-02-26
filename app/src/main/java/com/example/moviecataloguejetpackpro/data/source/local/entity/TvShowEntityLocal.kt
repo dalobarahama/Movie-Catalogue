@@ -1,30 +1,33 @@
 package com.example.moviecataloguejetpackpro.data.source.local.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "tv_show_entities")
+@Parcelize
 data class TvShowEntityLocal(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_local")
-    val idLocal: Int,
+    override val idLocal: Int,
 
     @ColumnInfo(name = "id_remote")
-    val idRemote: Int,
+    override val idRemote: Int,
 
     @ColumnInfo(name = "overview")
-    val overview: String,
+    override val overview: String,
 
     @ColumnInfo(name = "poster_path")
-    val posterPath: String,
+    override val posterPath: String,
 
     @ColumnInfo(name = "vote_average")
-    val voteAverage: Double,
+    override val voteAverage: Double,
+
+    @ColumnInfo(name = "bookmarked")
+    override var bookmarked: Boolean,
 
     @ColumnInfo(name = "name")
     val name: String,
-
-    @ColumnInfo(name = "bookmarked")
-    var bookmarked: Boolean = false,
-)
+) : BaseEntity, Parcelable

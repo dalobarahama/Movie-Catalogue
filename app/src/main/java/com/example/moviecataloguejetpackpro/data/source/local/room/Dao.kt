@@ -14,13 +14,13 @@ interface Dao {
     @Query("SELECT * FROM movie_entities")
     fun getAllMovies(): DataSource.Factory<Int, MovieEntityLocal>
 
-    @Query("SELECT * FROM movie_entities WHERE id = :movieId")
+    @Query("SELECT * FROM movie_entities WHERE id_local = :movieId")
     fun getMovieById(movieId: Int): LiveData<MovieEntityLocal>
 
     @Query("SELECT * FROM tv_show_entities")
     fun getAllTvShows(): DataSource.Factory<Int, TvShowEntityLocal>
 
-    @Query("SELECT * FROM tv_show_entities WHERE id = :tvShowId")
+    @Query("SELECT * FROM tv_show_entities WHERE id_local = :tvShowId")
     fun getTvShowId(tvShowId: Int): LiveData<TvShowEntityLocal>
 
     @Query("SELECT * FROM movie_entities WHERE bookmarked = 1")
